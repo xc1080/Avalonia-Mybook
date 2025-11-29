@@ -1,0 +1,161 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MyBook.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+        x:Class="MyBook.Views.LauncherWindow"
+        Title="MyBook - 视觉小说引擎"
+        Width="520" Height="580"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Background="White">
+
+    <Window.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#66BB6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#81C784"/>
+        </Style>
+        <Style Selector="Button.secondary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+        
+        <Style Selector="Button.outline">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#616161"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.outline:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="BorderBrush" Value="#757575"/>
+        </Style>
+        <Style Selector="Button.outline:pointerover">
+            <Setter Property="BorderBrush" Value="#757575"/>
+            <Setter Property="Foreground" Value="#424242"/>
+        </Style>
+        <Style Selector="Button.outline:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#EEEEEE"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="50,40">
+        
+        <!-- 标题 -->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Spacing="8" Margin="0,10,0,35">
+            <TextBlock Text="MyBook" 
+                      FontSize="42" 
+                      FontWeight="Bold"
+                      HorizontalAlignment="Center"
+                      Foreground="#2E7D32"/>
+            <TextBlock Text="视觉小说引擎与编辑器" 
+                      FontSize="16"
+                      HorizontalAlignment="Center"
+                      Foreground="#424242"/>
+        </StackPanel>
+
+        <!-- 选项按钮 -->
+        <StackPanel Grid.Row="1" 
+                   Spacing="14" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Stretch"
+                   MaxWidth="420">
+            
+            <Button Name="PlayButton"
+                   Classes="primary"
+                   Height="78"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnPlayClicked"
+                   Padding="25,18"
+                   HorizontalContentAlignment="Left">
+                <StackPanel VerticalAlignment="Center" Spacing="6">
+                    <TextBlock Text="开始游戏" 
+                              FontSize="22" 
+                              FontWeight="SemiBold"
+                              Foreground="White"/>
+                    <TextBlock Text="游玩你创作的视觉小说" 
+                              FontSize="13"
+                              Foreground="White"
+                              Opacity="0.92"/>
+                </StackPanel>
+            </Button>
+
+            <Button Name="EditorButton"
+                   Classes="secondary"
+                   Height="78"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnEditorClicked"
+                   Padding="25,18"
+                   HorizontalContentAlignment="Left">
+                <StackPanel VerticalAlignment="Center" Spacing="6">
+                    <TextBlock Text="故事编辑器" 
+                              FontSize="22" 
+                              FontWeight="SemiBold"
+                              Foreground="White"/>
+                    <TextBlock Text="创作和编辑剧本内容" 
+                              FontSize="13"
+                              Foreground="White"
+                              Opacity="0.92"/>
+                </StackPanel>
+            </Button>
+
+            <Button Name="ExitButton"
+                   Classes="outline"
+                   Height="48"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnExitClicked"
+                   Margin="0,6,0,0">
+                <TextBlock Text="退出程序" 
+                          FontSize="15"
+                          Foreground="#616161"/>
+            </Button>
+        </StackPanel>
+
+        <!-- 版本信息 -->
+        <TextBlock Grid.Row="2"
+                  Text="Version 1.0.0 | Made with Avalonia + C#"
+                  FontSize="11"
+                  Foreground="#9E9E9E"
+                  HorizontalAlignment="Center"
+                  Margin="0,30,0,5"/>
+    </Grid>
+</Window>

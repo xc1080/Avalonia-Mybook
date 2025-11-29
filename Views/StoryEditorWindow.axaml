@@ -1,0 +1,484 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:MyBook.ViewModels"
+    xmlns:models="using:MyBook.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:MyBook.Views"
+    mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+    x:Class="MyBook.Views.StoryEditorWindow"
+    x:DataType="vm:StoryEditorViewModel"
+    Title="MyBook 故事编辑器"
+    Width="1200" Height="800">
+
+    <Window.Resources>
+        <views:FileNameFromPathConverter x:Key="FileNameFromPathConverter" />
+    </Window.Resources>
+    <!-- 重复的属性声明已移除，保留唯一Window标签 -->
+
+    <Design.DataContext>
+        <vm:StoryEditorViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Button.editor-primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.editor-primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.editor-primary:pointerover">
+            <Setter Property="Background" Value="#66BB6A"/>
+            <Setter Property="BorderBrush" Value="#2E7D32"/>
+        </Style>
+        <Style Selector="Button.editor-primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        <Style Selector="Button.editor-primary:pressed">
+            <Setter Property="Background" Value="#388E3C"/>
+            <Setter Property="BorderBrush" Value="#1B5E20"/>
+        </Style>
+        
+        <Style Selector="Button.editor-secondary">
+            <Setter Property="Background" Value="#66BB6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.editor-secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#81C784"/>
+        </Style>
+        <Style Selector="Button.editor-secondary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+        
+        <Style Selector="Button.editor-neutral">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.editor-neutral:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#BDBDBD"/>
+        </Style>
+        <Style Selector="Button.editor-neutral:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#9E9E9E"/>
+        </Style>
+        <Style Selector="Button.editor-neutral:disabled">
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <!-- ToggleButton styles to match Button editor styles (确保一次性选择可见) -->
+        <Style Selector="ToggleButton.editor-primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton.editor-primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-primary:pointerover">
+            <Setter Property="Background" Value="#66BB6A"/>
+            <Setter Property="BorderBrush" Value="#2E7D32"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-primary:pressed">
+            <Setter Property="Background" Value="#388E3C"/>
+            <Setter Property="BorderBrush" Value="#1B5E20"/>
+        </Style>
+
+        <Style Selector="ToggleButton.editor-secondary">
+            <Setter Property="Background" Value="#66BB6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton.editor-secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#81C784"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-secondary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+
+        <Style Selector="ToggleButton.editor-neutral">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton.editor-neutral:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#BDBDBD"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-neutral:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#9E9E9E"/>
+        </Style>
+        <Style Selector="ToggleButton.editor-neutral:disabled">
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        
+        <!-- TextBox样式 -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="BorderBrush" Value="#757575"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#1976D2"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="TextBox:pointerover">
+            <Setter Property="BorderBrush" Value="#424242"/>
+        </Style>
+        <Style Selector="TextBox[IsReadOnly=true]">
+            <Setter Property="Background" Value="#EEEEEE"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="Foreground" Value="#616161"/>
+        </Style>
+        
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+        
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="#C8E6C9"/>
+        </Style>
+        <Style Selector="ListBoxItem:selected TextBlock">
+            <Setter Property="Foreground" Value="#1B5E20"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#E8F5E9"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="260,*,360" Background="White">
+        
+        <!-- 左侧：章节列表 -->
+        <Border Grid.Column="0" 
+                Background="#FAFAFA" 
+                BorderBrush="#E0E0E0" 
+                BorderThickness="0,0,1,0"
+                Padding="15">
+            <Grid RowDefinitions="Auto,*,Auto">
+                <TextBlock Grid.Row="0" 
+                          Text="章节列表" 
+                          FontSize="16" 
+                          FontWeight="SemiBold"
+                          Foreground="#2E7D32"
+                          Margin="0,5,0,12"/>
+                
+                <ListBox Grid.Row="1"
+                        ItemsSource="{Binding Chapters}"
+                        SelectedItem="{Binding SelectedChapter}"
+                        Background="White">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="models:Chapter">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{Binding Title}" 
+                                          FontWeight="SemiBold"
+                                          FontSize="14"
+                                          Foreground="#212121"
+                                          TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Id}" 
+                                          FontSize="10" 
+                                          Foreground="#757575"
+                                          Margin="0,0,0,2"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <StackPanel Grid.Row="2" 
+                           Spacing="8" 
+                           Margin="0,12,0,0">
+                    <Button Classes="editor-primary"
+                           Content="新建章节" 
+                           Click="OnCreateChapterClicked"
+                           HorizontalAlignment="Stretch"
+                           Padding="12,10"
+                           CornerRadius="5"
+                           FontSize="14"/>
+                    <Button Classes="editor-neutral"
+                           Content="删除选中章节" 
+                           Command="{Binding DeleteChapterCommand}"
+                           IsEnabled="{Binding SelectedChapter, Converter={x:Static ObjectConverters.IsNotNull}}"
+                           HorizontalAlignment="Stretch"
+                           Padding="12,10"
+                           CornerRadius="5"
+                           FontSize="14"/>
+                    <Button Classes="editor-secondary"
+                           Content="清理空章节" 
+                           Command="{Binding CleanEmptyChaptersCommand}"
+                           HorizontalAlignment="Stretch"
+                           Padding="12,10"
+                           CornerRadius="5"
+                           FontSize="14"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 中间：节点列表和内容编辑 -->
+        <Grid Grid.Column="1" RowDefinitions="300,*" Margin="15">
+            
+            <!-- 节点列表 -->
+            <Border Grid.Row="0" 
+                   Background="White"
+                   BorderBrush="#E0E0E0"
+                   BorderThickness="1"
+                   CornerRadius="6"
+                   Padding="15"
+                   Margin="0,0,0,15">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <TextBlock Grid.Row="0" 
+                              Text="节点列表" 
+                              FontSize="15" 
+                              FontWeight="SemiBold"
+                              Foreground="#2E7D32"
+                              Margin="0,0,0,8"/>
+                    
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ListBox ItemsSource="{Binding Nodes}"
+                                SelectedItem="{Binding SelectedNode}"
+                                Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="models:StoryNodeExtended">
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="{Binding Id}" 
+                                                  FontWeight="Bold"
+                                                  Width="120"
+                                                  Foreground="#212121"/>
+                                        <TextBlock Text="{Binding Text}" 
+                                                  TextTrimming="CharacterEllipsis"
+                                                  MaxWidth="300"
+                                                  Foreground="#424242"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    
+                    <StackPanel Grid.Row="2" 
+                               Orientation="Horizontal" 
+                               Spacing="8"
+                               Margin="0,8,0,0">
+                           <Button Classes="editor-primary"
+                               Content="新建节点" 
+                               Command="{Binding CreateNodeCommand}"
+                               Padding="15,8"
+                               CornerRadius="5"
+                               FontSize="13"/>
+                           <Button Classes="editor-neutral"
+                               Content="删除节点" 
+                               Command="{Binding DeleteNodeCommand}"
+                               Padding="15,8"
+                               CornerRadius="5"
+                               FontSize="13"/>
+                           <Button Classes="editor-secondary"
+                               Content="保存当前节点" 
+                               Command="{Binding SaveNodeCommand}"
+                               Padding="15,8"
+                               CornerRadius="5"
+                               FontSize="13"/>
+                           <Button Classes="editor-primary"
+                               Content="保存整个章节" 
+                               Command="{Binding SaveChapterCommand}"
+                               Padding="15,8"
+                               CornerRadius="5"
+                               FontSize="13"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 节点内容编辑 -->
+            <Border Grid.Row="1"
+                   Background="White"
+                   BorderBrush="#E0E0E0"
+                   BorderThickness="1"
+                   CornerRadius="6"
+                   Padding="20">
+                <ScrollViewer IsVisible="{Binding SelectedNode, Converter={x:Static ObjectConverters.IsNotNull}}">
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="节点编辑器" FontSize="17" FontWeight="SemiBold" Foreground="#2E7D32" Margin="0,0,0,5"/>
+                        <!-- 节点ID -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="节点 ID" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBox Text="{Binding SelectedNode.Id}" IsReadOnly="True"/>
+                        </StackPanel>
+                        <!-- 节点类型 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="类型" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBox Text="{Binding SelectedNode.Type}" IsReadOnly="True"/>
+                        </StackPanel>
+                        <!-- 说话者 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="说话者 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBox Text="{Binding SelectedNode.Speaker}" Watermark="角色名称..."/>
+                        </StackPanel>
+                        <!-- 图片设置 -->
+                        <StackPanel Spacing="6" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="节点图片 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <Button Classes="editor-primary" Content="选择图片" Command="{Binding SelectImageCommand}" Padding="8,4" Width="120" HorizontalAlignment="Left" Margin="0,4,0,0"/>
+                            <TextBlock Text="{Binding SelectedNode.Visuals.BackgroundImage, Converter={StaticResource FileNameFromPathConverter}}" Margin="12,4,0,0" FontSize="13" Foreground="#2E7D32" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <!-- 背景音乐设置 -->
+                        <StackPanel Spacing="6" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="背景音乐 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <Button Classes="editor-primary" Content="选择音乐" Command="{Binding SelectAudioCommand}" Padding="8,4" Width="120" HorizontalAlignment="Left" Margin="0,4,0,0"/>
+                            <TextBlock Text="{Binding SelectedNode.Audio.BgmFile, Converter={StaticResource FileNameFromPathConverter}}" Margin="12,4,0,0" FontSize="13" Foreground="#2E7D32" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <!-- 文本内容 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="文本内容" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBox Text="{Binding SelectedNode.Text}" AcceptsReturn="True" TextWrapping="Wrap" Height="220" Watermark="输入对话或叙述文本..." FontSize="13"/>
+                        </StackPanel>
+                        <!-- 下一个节点 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="下一个节点 ID (自动前进)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBox Text="{Binding SelectedNode.NextId}" Watermark="留空表示无自动跳转..."/>
+                        </StackPanel>
+                        <!-- 选项编辑 -->
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="选项 (Choices)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <ListBox ItemsSource="{Binding SelectedNode.Choices}" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="models:StoryChoice">
+                                        <Border Background="#FFF" CornerRadius="6" Padding="8" Margin="0,6,0,6">
+                                            <StackPanel Spacing="6">
+                                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                                                        <TextBlock Text="Id:" FontSize="12" Foreground="#757575" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding Id}" FontSize="12" Foreground="#212121" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                    <Button Grid.Column="2" Content="删除" Command="{Binding DataContext.RemoveChoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding .}" Classes="editor-neutral" Width="80" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <TextBox Text="{Binding Text}" Watermark="选项文本..."/>
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <TextBox Width="200" Text="{Binding TargetNodeId}" Watermark="目标节点ID (同章)..."/>
+                                                    <TextBox Width="200" Text="{Binding TargetChapterId}" Watermark="目标章节ID (跨章)..."/>
+                                                </StackPanel>
+                                                <TextBox Text="{Binding Condition}" Watermark="条件表达式，例如: chose('choice-id') 或 love >= 50"/>
+                                                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                                    <ToggleButton IsChecked="{Binding IsOneTime}" Classes="editor-secondary" Content="一次性选择" Width="140" HorizontalAlignment="Left"/>
+                                                    <TextBlock Text="(选择后隐藏)" VerticalAlignment="Center" Foreground="#424242" FontSize="13" Margin="6,0,0,0"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Classes="editor-primary" Content="添加选项" Command="{Binding AddChoiceCommand}" Padding="10,6" Width="120"/>
+                                <Button Classes="editor-secondary" Content="保存选项" Command="{Binding SaveNodeCommand}" Padding="10,6" Width="120"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- 右侧：导入工具 -->
+        <Border Grid.Column="2"
+               Background="#FAFAFA"
+               BorderBrush="#E0E0E0"
+               BorderThickness="1,0,0,0"
+               Padding="18">
+            <Grid RowDefinitions="Auto,*,Auto">
+                <TextBlock Grid.Row="0"
+                          Text="导入剧本" 
+                          FontSize="16" 
+                          FontWeight="SemiBold"
+                          Foreground="#2E7D32"
+                          Margin="0,5,0,12"/>
+                
+                <TextBox Grid.Row="1"
+                        Text="{Binding ImportText}"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Watermark="粘贴你的剧本文本...&#x0a;&#x0a;支持格式：&#x0a;# 章节标题&#x0a;## [节点ID]&#x0a;文本内容...&#x0a;→ 选项 [目标节点]"
+                        FontSize="13"/>
+                
+                <StackPanel Grid.Row="2" 
+                           Spacing="10"
+                           Margin="0,12,0,0">
+                    <Button Classes="editor-primary"
+                           Content="导入为新章节" 
+                           Command="{Binding ImportScriptCommand}"
+                           HorizontalAlignment="Stretch"
+                           Padding="14"
+                           CornerRadius="5"
+                           FontSize="14"/>
+                    <Button Classes="editor-neutral"
+                           Content="导出当前章节" 
+                           Command="{Binding ExportScriptCommand}"
+                           HorizontalAlignment="Stretch"
+                           Padding="14"
+                           CornerRadius="5"
+                           FontSize="14"/>
+                      <Button Classes="editor-neutral"
+                          Content="返回主菜单"
+                          Click="OnReturnToMainMenuClicked"
+                          HorizontalAlignment="Stretch"
+                          Padding="14"
+                          CornerRadius="5"
+                          FontSize="14"/>
+                    <TextBlock Text="提示：导入后会自动解析文本为节点结构"
+                              TextWrapping="Wrap"
+                              FontSize="12"
+                              Foreground="#616161"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

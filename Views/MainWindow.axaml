@@ -1,0 +1,184 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MyBook.ViewModels"
+        xmlns:models="using:MyBook.Models"
+        xmlns:views="using:MyBook.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="MyBook.Views.MainWindow"
+        x:DataType="vm:StoryViewModelRuntime"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="我的视觉小说"
+        Width="800" Height="600">
+
+    <Window.Resources>
+        <views:PathToBitmapConverter x:Key="PathToBitmapConverter" />
+    </Window.Resources>
+
+    <Design.DataContext>
+        <vm:StoryViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Button.choice">
+            <Setter Property="Background" Value="#3E8E46"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="18,12"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.choice:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.choice:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        
+        <Style Selector="Button.nav">
+            <Setter Property="Background" Value="#5FAF51"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.nav:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#A5D6A7"/>
+        </Style>
+        <Style Selector="Button.nav:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.nav:disabled">
+            <Setter Property="Opacity" Value="0.4"/>
+        </Style>
+        
+        <Style Selector="Button.restart">
+            <Setter Property="Background" Value="#4FA144"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.restart:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#81C784"/>
+        </Style>
+        <Style Selector="Button.restart:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- 背景图片: 跨整个 Grid -->
+         <Image Grid.Row="0" Grid.RowSpan="4"
+             Source="{Binding BackgroundImage, Converter={StaticResource PathToBitmapConverter}}"
+             Stretch="UniformToFill"
+             Opacity="0.92"/>
+
+        <!-- 选项按钮区域：放在文本之上 -->
+        <ItemsControl Grid.Row="1" 
+                 ItemsSource="{Binding VisibleChoices}"
+                 Margin="0,0,0,8"
+                 IsVisible="{Binding HasVisibleChoices}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="models:StoryChoice">
+                          <Button Classes="choice"
+                              Content="{Binding Text}"
+                              Command="{Binding DataContext.ChooseCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                              CommandParameter="{Binding .}"
+                           HorizontalAlignment="Stretch"
+                           Margin="0,8"
+                           Padding="20,14"
+                           FontSize="16"
+                           CornerRadius="6"
+                           FontWeight="Medium"
+                           HorizontalContentAlignment="Center"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- 故事文本显示区域：位于选项下方的小面板 -->
+        <Border Grid.Row="2"
+                VerticalAlignment="Bottom"
+                Background="#55FFFFFF"
+                CornerRadius="12"
+                Padding="18"
+                BorderBrush="#DADADA"
+                BorderThickness="1"
+                MaxHeight="220"
+                Margin="0,0,0,8">
+            <ScrollViewer>
+                <TextBlock Text="{Binding CurrentNode.Text}" 
+                          TextWrapping="Wrap"
+                          FontSize="17"
+                          LineHeight="28"
+                          Foreground="#0D0D0D"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- 导航按钮区域 -->
+        <StackPanel Grid.Row="3" 
+                   Orientation="Horizontal" 
+                   HorizontalAlignment="Center"
+                   Spacing="12"
+                   Margin="0,20,0,0">
+            
+            <Button Classes="nav"
+                   Content="上一页" 
+                   Command="{Binding PrevCommand}"
+                   IsEnabled="{Binding CanPrev}"
+                   Padding="24,12"
+                   FontSize="14"
+                   CornerRadius="6"
+                   MinWidth="100"/>
+            
+            <Button Classes="restart"
+                   Content="重新开始" 
+                   Command="{Binding RestartCommand}"
+                   Padding="24,12"
+                   FontSize="14"
+                   CornerRadius="6"
+                   MinWidth="100"/>
+            
+            <Button Classes="nav"
+                   Content="下一页" 
+                   Command="{Binding NextCommand}"
+                   IsEnabled="{Binding CanNext}"
+                   Padding="24,12"
+                   FontSize="14"
+                   CornerRadius="6"
+                   MinWidth="100"/>
+
+                                 <Button Classes="nav"
+                                     Content="下一章" 
+                                     Click="OnNextChapterClicked"
+                                     IsEnabled="{Binding CanGoToNextChapter}"
+                                     Padding="24,12"
+                                     FontSize="14"
+                                     CornerRadius="6"
+                                     MinWidth="100"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

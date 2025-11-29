@@ -1,0 +1,369 @@
+2025-11-29T13:19:46.9694547Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_02'
+2025-11-29T13:19:46.9728416Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_02'
+2025-11-29T13:19:47.1106623Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_03'
+2025-11-29T13:19:47.1112658Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_03'
+2025-11-29T13:19:47.2289536Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_04'
+2025-11-29T13:19:47.2296021Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_04'
+2025-11-29T13:19:47.3489904Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_05'
+2025-11-29T13:19:47.3495784Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_05'
+2025-11-29T13:19:47.4835270Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_06'
+2025-11-29T13:19:47.4840768Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_06'
+2025-11-29T13:19:47.6332660Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_07'
+2025-11-29T13:19:47.6338927Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_07'
+2025-11-29T13:19:47.7115375Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_08'
+2025-11-29T13:19:47.7123805Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_08'
+2025-11-29T13:19:47.8350061Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_09'
+2025-11-29T13:19:47.8356184Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_09'
+2025-11-29T13:19:47.9631521Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_10'
+2025-11-29T13:19:47.9638675Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_10'
+2025-11-29T13:19:48.0924643Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_11'
+2025-11-29T13:19:48.0931656Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_11'
+2025-11-29T13:19:48.2030910Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_12'
+2025-11-29T13:19:48.2037926Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_12'
+2025-11-29T13:19:48.3449924Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_13'
+2025-11-29T13:19:48.3455382Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_13'
+2025-11-29T13:19:48.4650572Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_14'
+2025-11-29T13:19:48.4656284Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_14'
+2025-11-29T13:19:48.7050055Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_15'
+2025-11-29T13:19:48.7056180Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_15'
+2025-11-29T13:19:48.8428247Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_16'
+2025-11-29T13:19:48.8433873Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_16'
+2025-11-29T13:19:48.9969761Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_17'
+2025-11-29T13:19:48.9975680Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_17'
+2025-11-29T13:19:49.1260701Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_18'
+2025-11-29T13:19:49.1271125Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_18'
+2025-11-29T13:19:49.2833710Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_19'
+2025-11-29T13:19:49.2840024Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_19'
+2025-11-29T13:19:49.4262298Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_20'
+2025-11-29T13:19:49.4268442Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_20'
+2025-11-29T13:19:49.5670279Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_21'
+2025-11-29T13:19:49.5675433Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_21'
+2025-11-29T13:19:49.6955381Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_22'
+2025-11-29T13:19:49.6960357Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_22'
+2025-11-29T13:19:49.8309792Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_23'
+2025-11-29T13:19:49.8314774Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_23'
+2025-11-29T13:19:49.9810256Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_24'
+2025-11-29T13:19:49.9815784Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_24'
+2025-11-29T13:19:50.1232169Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_25'
+2025-11-29T13:19:50.1238730Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_25'
+2025-11-29T13:19:50.2869703Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_26'
+2025-11-29T13:19:50.2874919Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_26'
+2025-11-29T13:19:50.4085611Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_27'
+2025-11-29T13:19:50.4090710Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_27'
+2025-11-29T13:19:50.5489900Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_28'
+2025-11-29T13:19:50.5495199Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_28'
+2025-11-29T13:19:50.6931856Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_29'
+2025-11-29T13:19:50.6936802Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_29'
+2025-11-29T13:19:50.8270746Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_30'
+2025-11-29T13:19:50.8276864Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_30'
+2025-11-29T13:19:50.9631032Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_31'
+2025-11-29T13:19:50.9636641Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_31'
+2025-11-29T13:19:51.1490816Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_32'
+2025-11-29T13:19:51.1497586Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_32'
+2025-11-29T13:19:51.2690211Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_33'
+2025-11-29T13:19:51.2695152Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_33'
+2025-11-29T13:19:51.4110581Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_34'
+2025-11-29T13:19:51.4115841Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_34'
+2025-11-29T13:19:51.5550387Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_35'
+2025-11-29T13:19:51.5555169Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_35'
+2025-11-29T13:19:51.7110090Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_36'
+2025-11-29T13:19:51.7115002Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_36'
+2025-11-29T13:19:51.8390767Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_37'
+2025-11-29T13:19:51.8397183Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_37'
+2025-11-29T13:19:52.0269293Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_38'
+2025-11-29T13:19:52.0275145Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_38'
+2025-11-29T13:19:52.1393226Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_39'
+2025-11-29T13:19:52.1399496Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_39'
+2025-11-29T13:19:52.2669841Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_40'
+2025-11-29T13:19:52.2676805Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_40'
+2025-11-29T13:19:52.4173746Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_41'
+2025-11-29T13:19:52.4180055Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_41'
+2025-11-29T13:19:52.5670454Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_42'
+2025-11-29T13:19:52.5676658Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_42'
+2025-11-29T13:19:52.7189875Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_43'
+2025-11-29T13:19:52.7196372Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_43'
+2025-11-29T13:19:52.8733371Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_44'
+2025-11-29T13:19:52.8738870Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_44'
+2025-11-29T13:19:53.0170939Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_45'
+2025-11-29T13:19:53.0175710Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_45'
+2025-11-29T13:19:53.1730498Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_46'
+2025-11-29T13:19:53.1735672Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_46'
+2025-11-29T13:19:53.3231580Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_47'
+2025-11-29T13:19:53.3237463Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_47'
+2025-11-29T13:19:53.4820936Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_48'
+2025-11-29T13:19:53.4829291Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_48'
+2025-11-29T13:19:53.6389958Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_49'
+2025-11-29T13:19:53.6395672Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_49'
+2025-11-29T13:19:53.7651878Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_50'
+2025-11-29T13:19:53.7667896Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_50'
+2025-11-29T13:19:54.7653880Z ChooseAsync invoked: Id=e586bb5a-e5da-4f1e-b4d6-fe585aef57d2, TargetChapterId=chapter_003_node_0000, TargetNodeId=
+2025-11-29T13:40:16.0296166Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_02'
+2025-11-29T13:40:16.0339200Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_02' (chapter chapter_002)
+2025-11-29T13:40:16.1844100Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_03'
+2025-11-29T13:40:16.1852664Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_03' (chapter chapter_002)
+2025-11-29T13:40:16.2961827Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_04'
+2025-11-29T13:40:16.2968975Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_04' (chapter chapter_002)
+2025-11-29T13:40:16.4534501Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_05'
+2025-11-29T13:40:16.4540867Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_05' (chapter chapter_002)
+2025-11-29T13:40:16.6260739Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_06'
+2025-11-29T13:40:16.6267004Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_06' (chapter chapter_002)
+2025-11-29T13:40:16.7080763Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_07'
+2025-11-29T13:40:16.7086072Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_07' (chapter chapter_002)
+2025-11-29T13:40:16.8883056Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_08'
+2025-11-29T13:40:16.8890566Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_08' (chapter chapter_002)
+2025-11-29T13:40:17.0381741Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_09'
+2025-11-29T13:40:17.0387619Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_09' (chapter chapter_002)
+2025-11-29T13:40:17.2106604Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_10'
+2025-11-29T13:40:17.2112970Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_10' (chapter chapter_002)
+2025-11-29T13:40:17.3522091Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_11'
+2025-11-29T13:40:17.3528149Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_11' (chapter chapter_002)
+2025-11-29T13:40:17.5100296Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_12'
+2025-11-29T13:40:17.5105300Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_12' (chapter chapter_002)
+2025-11-29T13:40:17.6534402Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_13'
+2025-11-29T13:40:17.6539747Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_13' (chapter chapter_002)
+2025-11-29T13:40:17.8193680Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_14'
+2025-11-29T13:40:17.8200514Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_14' (chapter chapter_002)
+2025-11-29T13:40:17.9445897Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_15'
+2025-11-29T13:40:17.9451925Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_15' (chapter chapter_002)
+2025-11-29T13:40:18.1030863Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_16'
+2025-11-29T13:40:18.1036584Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_16' (chapter chapter_002)
+2025-11-29T13:40:18.2740837Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_17'
+2025-11-29T13:40:18.2746381Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_17' (chapter chapter_002)
+2025-11-29T13:40:18.4320538Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_18'
+2025-11-29T13:40:18.4325661Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_18' (chapter chapter_002)
+2025-11-29T13:40:18.5742353Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_19'
+2025-11-29T13:40:18.5756772Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_19' (chapter chapter_002)
+2025-11-29T13:40:18.7401711Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_20'
+2025-11-29T13:40:18.7408803Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_20' (chapter chapter_002)
+2025-11-29T13:40:18.8820856Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_21'
+2025-11-29T13:40:18.8826401Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_21' (chapter chapter_002)
+2025-11-29T13:40:19.0460994Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_22'
+2025-11-29T13:40:19.0466297Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_22' (chapter chapter_002)
+2025-11-29T13:40:19.1961482Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_23'
+2025-11-29T13:40:19.1967152Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_23' (chapter chapter_002)
+2025-11-29T13:40:19.3401026Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_24'
+2025-11-29T13:40:19.3407211Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_24' (chapter chapter_002)
+2025-11-29T13:40:19.4822300Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_25'
+2025-11-29T13:40:19.4828227Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_25' (chapter chapter_002)
+2025-11-29T13:40:19.6401268Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_26'
+2025-11-29T13:40:19.6408260Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_26' (chapter chapter_002)
+2025-11-29T13:40:19.7901431Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_27'
+2025-11-29T13:40:19.7906951Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_27' (chapter chapter_002)
+2025-11-29T13:40:19.9464031Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_28'
+2025-11-29T13:40:19.9469118Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_28' (chapter chapter_002)
+2025-11-29T13:40:20.1346668Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_29'
+2025-11-29T13:40:20.1352827Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_29' (chapter chapter_002)
+2025-11-29T13:40:20.2691568Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_30'
+2025-11-29T13:40:20.2696336Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_30' (chapter chapter_002)
+2025-11-29T13:40:20.4261022Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_31'
+2025-11-29T13:40:20.4266718Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_31' (chapter chapter_002)
+2025-11-29T13:40:20.5925656Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_32'
+2025-11-29T13:40:20.5930386Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_32' (chapter chapter_002)
+2025-11-29T13:40:20.7420660Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_33'
+2025-11-29T13:40:20.7425992Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_33' (chapter chapter_002)
+2025-11-29T13:40:20.9061841Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_34'
+2025-11-29T13:40:20.9068702Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_34' (chapter chapter_002)
+2025-11-29T13:40:21.0641109Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_35'
+2025-11-29T13:40:21.0647845Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_35' (chapter chapter_002)
+2025-11-29T13:40:21.2141003Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_36'
+2025-11-29T13:40:21.2145907Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_36' (chapter chapter_002)
+2025-11-29T13:40:21.3702017Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_37'
+2025-11-29T13:40:21.3708107Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_37' (chapter chapter_002)
+2025-11-29T13:40:21.5203705Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_38'
+2025-11-29T13:40:21.5209441Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_38' (chapter chapter_002)
+2025-11-29T13:40:21.6880557Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_39'
+2025-11-29T13:40:21.6886798Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_39' (chapter chapter_002)
+2025-11-29T13:40:21.7983987Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_40'
+2025-11-29T13:40:21.7989617Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_40' (chapter chapter_002)
+2025-11-29T13:40:21.9481473Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_41'
+2025-11-29T13:40:21.9486332Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_41' (chapter chapter_002)
+2025-11-29T13:40:22.1219106Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_42'
+2025-11-29T13:40:22.1225964Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_42' (chapter chapter_002)
+2025-11-29T13:40:22.2640804Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_43'
+2025-11-29T13:40:22.2646061Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_43' (chapter chapter_002)
+2025-11-29T13:40:22.4360345Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_44'
+2025-11-29T13:40:22.4365436Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_44' (chapter chapter_002)
+2025-11-29T13:40:22.6011872Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_45'
+2025-11-29T13:40:22.6017499Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_45' (chapter chapter_002)
+2025-11-29T13:40:22.7581033Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_46'
+2025-11-29T13:40:22.7585760Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_46' (chapter chapter_002)
+2025-11-29T13:40:22.8701159Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_47'
+2025-11-29T13:40:22.8707838Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_47' (chapter chapter_002)
+2025-11-29T13:40:23.0281700Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_48'
+2025-11-29T13:40:23.0287163Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_48' (chapter chapter_002)
+2025-11-29T13:40:23.1872238Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_49'
+2025-11-29T13:40:23.1878550Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_49' (chapter chapter_002)
+2025-11-29T13:40:23.3721416Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_50'
+2025-11-29T13:40:23.3736905Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_50' (chapter chapter_002)
+2025-11-29T13:40:24.3871766Z ChooseAsync invoked: Id=e586bb5a-e5da-4f1e-b4d6-fe585aef57d2, TargetChapterId=chapter_003_node_0000, TargetNodeId=
+2025-11-29T13:40:24.3895638Z NavigateToNodeAsync: attempting to navigate to 'chapter_003_node_0000'
+2025-11-29T13:40:24.5759306Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_003_node_0000' (chapter chapter_003)
+2025-11-29T13:43:02.1799898Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_02'
+2025-11-29T13:43:02.1808238Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_02' (chapter chapter_001)
+2025-11-29T13:43:02.3357487Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_03'
+2025-11-29T13:43:02.3368725Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_03' (chapter chapter_001)
+2025-11-29T13:43:02.4772388Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_04'
+2025-11-29T13:43:02.4778621Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_04' (chapter chapter_001)
+2025-11-29T13:43:02.5892514Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_05'
+2025-11-29T13:43:02.5898609Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_05' (chapter chapter_001)
+2025-11-29T13:57:27.3746313Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_02'
+2025-11-29T13:57:27.3761686Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_02' (chapter chapter_001)
+2025-11-29T13:57:27.5150644Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_03'
+2025-11-29T13:57:27.5156185Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_03' (chapter chapter_001)
+2025-11-29T13:57:27.6202513Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_04'
+2025-11-29T13:57:27.6207733Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_04' (chapter chapter_001)
+2025-11-29T13:57:27.7464162Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_05'
+2025-11-29T13:57:27.7471164Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_05' (chapter chapter_001)
+2025-11-29T13:57:27.8663080Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_06'
+2025-11-29T13:57:27.8668775Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_06' (chapter chapter_001)
+2025-11-29T13:57:27.9783184Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_07'
+2025-11-29T13:57:27.9788266Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_07' (chapter chapter_001)
+2025-11-29T13:57:28.1226537Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_08'
+2025-11-29T13:57:28.1231358Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_08' (chapter chapter_001)
+2025-11-29T13:57:28.2422349Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_09'
+2025-11-29T13:57:28.2427727Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_09' (chapter chapter_001)
+2025-11-29T13:57:28.4884167Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_10'
+2025-11-29T13:57:28.4889301Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_10' (chapter chapter_001)
+2025-11-29T13:57:28.6082955Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_11'
+2025-11-29T13:57:28.6088127Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_11' (chapter chapter_001)
+2025-11-29T13:57:28.7583952Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_12'
+2025-11-29T13:57:28.7588619Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_12' (chapter chapter_001)
+2025-11-29T13:57:28.8943464Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_13'
+2025-11-29T13:57:28.8950007Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_13' (chapter chapter_001)
+2025-11-29T13:57:29.0368557Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_14'
+2025-11-29T13:57:29.0373257Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_14' (chapter chapter_001)
+2025-11-29T13:57:29.1561939Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_15'
+2025-11-29T13:57:29.1567217Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_15' (chapter chapter_001)
+2025-11-29T13:57:29.2988957Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_16'
+2025-11-29T13:57:29.2993919Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_16' (chapter chapter_001)
+2025-11-29T13:57:29.4343421Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_17'
+2025-11-29T13:57:29.4358242Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_17' (chapter chapter_001)
+2025-11-29T13:57:29.5781721Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_18'
+2025-11-29T13:57:29.5787214Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_18' (chapter chapter_001)
+2025-11-29T13:57:29.7265788Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_19'
+2025-11-29T13:57:29.7270366Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_19' (chapter chapter_001)
+2025-11-29T13:57:29.8602258Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_20'
+2025-11-29T13:57:29.8607419Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_20' (chapter chapter_001)
+2025-11-29T13:57:30.0103857Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_21'
+2025-11-29T13:57:30.0108910Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_21' (chapter chapter_001)
+2025-11-29T13:57:30.1545980Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_22'
+2025-11-29T13:57:30.1551251Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_22' (chapter chapter_001)
+2025-11-29T13:57:30.2967144Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_23'
+2025-11-29T13:57:30.2975011Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_23' (chapter chapter_001)
+2025-11-29T13:57:30.4468906Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_24'
+2025-11-29T13:57:30.4473836Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_24' (chapter chapter_001)
+2025-11-29T13:57:30.6023888Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_25'
+2025-11-29T13:57:30.6029148Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_25' (chapter chapter_001)
+2025-11-29T13:57:30.7464977Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_26'
+2025-11-29T13:57:30.7471004Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_26' (chapter chapter_001)
+2025-11-29T13:57:30.8964546Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_27'
+2025-11-29T13:57:30.8971440Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_27' (chapter chapter_001)
+2025-11-29T13:57:31.0464652Z NavigateToNodeAsync: attempting to navigate to 'chapter_001_scene_28'
+2025-11-29T13:57:31.0480817Z NavigateToNodeAsync: navigated using cache to 'chapter_001_scene_28' (chapter chapter_001)
+2025-11-29T13:57:31.1985092Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_01'
+2025-11-29T13:57:31.2221006Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_01' (chapter chapter_002)
+2025-11-29T13:57:31.3522431Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_02'
+2025-11-29T13:57:31.3532118Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_02' (chapter chapter_002)
+2025-11-29T13:57:32.4034885Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_01'
+2025-11-29T13:57:32.4042682Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_01' (chapter chapter_002)
+2025-11-29T13:57:33.7745506Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_02'
+2025-11-29T13:57:33.7751274Z NavigateToNodeAsync: navigated using cache to 'chapter_002_scene_02' (chapter chapter_002)
+2025-11-29T13:57:34.2682421Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_03'
+2025-11-29T13:57:34.2692304Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_03' (chapter chapter_002)
+2025-11-29T13:57:34.4263136Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_04'
+2025-11-29T13:57:34.4274915Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_04' (chapter chapter_002)
+2025-11-29T13:57:34.6662085Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_05'
+2025-11-29T13:57:34.6672979Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_05' (chapter chapter_002)
+2025-11-29T13:57:34.8024874Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_06'
+2025-11-29T13:57:34.8034399Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_06' (chapter chapter_002)
+2025-11-29T13:57:34.9666403Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_07'
+2025-11-29T13:57:34.9675836Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_07' (chapter chapter_002)
+2025-11-29T13:57:35.1902248Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_08'
+2025-11-29T13:57:35.1911939Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_08' (chapter chapter_002)
+2025-11-29T13:57:35.3641962Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_09'
+2025-11-29T13:57:35.3651335Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_09' (chapter chapter_002)
+2025-11-29T13:57:35.5281831Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_10'
+2025-11-29T13:57:35.5292553Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_10' (chapter chapter_002)
+2025-11-29T13:57:35.6701950Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_11'
+2025-11-29T13:57:35.6712854Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_11' (chapter chapter_002)
+2025-11-29T13:57:35.8062498Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_12'
+2025-11-29T13:57:35.8071965Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_12' (chapter chapter_002)
+2025-11-29T13:57:35.9491828Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_13'
+2025-11-29T13:57:35.9503637Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_13' (chapter chapter_002)
+2025-11-29T13:57:36.0980881Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_14'
+2025-11-29T13:57:36.0992104Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_14' (chapter chapter_002)
+2025-11-29T13:57:36.2402313Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_15'
+2025-11-29T13:57:36.2413468Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_15' (chapter chapter_002)
+2025-11-29T13:57:36.3834172Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_16'
+2025-11-29T13:57:36.3843006Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_16' (chapter chapter_002)
+2025-11-29T13:57:36.5264176Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_17'
+2025-11-29T13:57:36.5274899Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_17' (chapter chapter_002)
+2025-11-29T13:57:36.6521404Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_18'
+2025-11-29T13:57:36.6532279Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_18' (chapter chapter_002)
+2025-11-29T13:57:36.8025902Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_19'
+2025-11-29T13:57:36.8034763Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_19' (chapter chapter_002)
+2025-11-29T13:57:36.9382947Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_20'
+2025-11-29T13:57:36.9394052Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_20' (chapter chapter_002)
+2025-11-29T13:57:37.0722233Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_21'
+2025-11-29T13:57:37.0731480Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_21' (chapter chapter_002)
+2025-11-29T13:57:37.2224336Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_22'
+2025-11-29T13:57:37.2233777Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_22' (chapter chapter_002)
+2025-11-29T13:57:37.3647580Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_23'
+2025-11-29T13:57:37.3656630Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_23' (chapter chapter_002)
+2025-11-29T13:57:37.5227304Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_24'
+2025-11-29T13:57:37.5240062Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_24' (chapter chapter_002)
+2025-11-29T13:57:37.6642009Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_25'
+2025-11-29T13:57:37.6650330Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_25' (chapter chapter_002)
+2025-11-29T13:57:37.8082581Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_26'
+2025-11-29T13:57:37.8095072Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_26' (chapter chapter_002)
+2025-11-29T13:57:37.9619129Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_27'
+2025-11-29T13:57:37.9629588Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_27' (chapter chapter_002)
+2025-11-29T13:57:38.1085035Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_28'
+2025-11-29T13:57:38.1095887Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_28' (chapter chapter_002)
+2025-11-29T13:57:38.2582372Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_29'
+2025-11-29T13:57:38.2593311Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_29' (chapter chapter_002)
+2025-11-29T13:57:38.4001234Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_30'
+2025-11-29T13:57:38.4010010Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_30' (chapter chapter_002)
+2025-11-29T13:57:38.5501220Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_31'
+2025-11-29T13:57:38.5510055Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_31' (chapter chapter_002)
+2025-11-29T13:57:38.7087271Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_32'
+2025-11-29T13:57:38.7096531Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_32' (chapter chapter_002)
+2025-11-29T13:57:38.8563208Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_33'
+2025-11-29T13:57:38.8575886Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_33' (chapter chapter_002)
+2025-11-29T13:57:39.1504021Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_34'
+2025-11-29T13:57:39.1517474Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_34' (chapter chapter_002)
+2025-11-29T13:57:39.3001108Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_35'
+2025-11-29T13:57:39.3009998Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_35' (chapter chapter_002)
+2025-11-29T13:57:39.4641298Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_36'
+2025-11-29T13:57:39.4652550Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_36' (chapter chapter_002)
+2025-11-29T13:57:39.6142669Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_37'
+2025-11-29T13:57:39.6151386Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_37' (chapter chapter_002)
+2025-11-29T13:57:39.7649643Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_38'
+2025-11-29T13:57:39.7659424Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_38' (chapter chapter_002)
+2025-11-29T13:57:39.9288746Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_39'
+2025-11-29T13:57:39.9301493Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_39' (chapter chapter_002)
+2025-11-29T13:57:40.0654396Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_40'
+2025-11-29T13:57:40.0665054Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_40' (chapter chapter_002)
+2025-11-29T13:57:40.2288447Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_41'
+2025-11-29T13:57:40.2299196Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_41' (chapter chapter_002)
+2025-11-29T13:57:40.3722304Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_42'
+2025-11-29T13:57:40.3733219Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_42' (chapter chapter_002)
+2025-11-29T13:57:40.5284381Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_43'
+2025-11-29T13:57:40.5297380Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_43' (chapter chapter_002)
+2025-11-29T13:57:40.6641572Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_44'
+2025-11-29T13:57:40.6651094Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_44' (chapter chapter_002)
+2025-11-29T13:57:40.8282441Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_45'
+2025-11-29T13:57:40.8295492Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_45' (chapter chapter_002)
+2025-11-29T13:57:40.9783877Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_46'
+2025-11-29T13:57:40.9795086Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_46' (chapter chapter_002)
+2025-11-29T13:57:41.1364377Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_47'
+2025-11-29T13:57:41.1376621Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_47' (chapter chapter_002)
+2025-11-29T13:57:41.2941577Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_48'
+2025-11-29T13:57:41.2951719Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_48' (chapter chapter_002)
+2025-11-29T13:57:41.4442388Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_49'
+2025-11-29T13:57:41.4452805Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_49' (chapter chapter_002)
+2025-11-29T13:57:41.6005494Z NavigateToNodeAsync: attempting to navigate to 'chapter_002_scene_50'
+2025-11-29T13:57:41.6017071Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_002_scene_50' (chapter chapter_002)
+2025-11-29T13:57:42.8345611Z ChooseAsync invoked: Id=e586bb5a-e5da-4f1e-b4d6-fe585aef57d2, TargetChapterId=chapter_003_node_0000, TargetNodeId=
+2025-11-29T13:57:42.8364230Z NavigateToNodeAsync: attempting to navigate to 'chapter_003_node_0000'
+2025-11-29T13:57:42.9056776Z NavigateToNodeAsync: navigated after DB lookup to 'chapter_003_node_0000' (chapter chapter_003)
