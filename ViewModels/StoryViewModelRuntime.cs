@@ -16,12 +16,65 @@ using NCalc;
 public partial class StoryViewModelRuntime : ViewModelBase
 {
     private readonly MyBook.Services.AudioPlayer _audioPlayer = new();
+    private readonly TypewriterService _typewriter = new();
     private string? _currentBgmPath;
+    
+    // 用于抑制读档时的打字机效果
+    private bool _suppressTypewriter;
+    
     [ObservableProperty]
     private string? _backgroundImage;
+    
+    // 打字机效果：当前显示的文本
+    [ObservableProperty]
+    private string _displayedText = string.Empty;
+    
+    // 打字机效果：是否正在打字
+    [ObservableProperty]
+    private bool _isTyping;
+    
+    // 打字机效果配置
+    public bool EnableTypewriter { get; set; } = true;
+    public int TypewriterSpeed { get => _typewriter.CharacterDelay; set => _typewriter.CharacterDelay = value; }
+    
+    [ObservableProperty]
+    private bool _enableTypeSound = true;
+    
+    partial void OnEnableTypeSoundChanged(bool value)
+    {
+        _typewriter.EnableSound = value;
+    }
+    
+    // 背景音乐开关
+    [ObservableProperty]
+    private bool _enableBgm = true;
+    
+    partial void OnEnableBgmChanged(bool value)
+    {
+        if (!value)
+        {
+            StopMusic();
+        }
+        else if (CurrentNode?.Audio?.BgmFile != null)
+        {
+            PlayMusic(CurrentNode.Audio.BgmFile);
+        }
+    }
+    
+    // 返回主菜单事件
+    public event Action? ReturnToLauncherRequested;
+    
+    [RelayCommand]
+    private void ReturnToLauncher()
+    {
+        StopMusic();
+        ReturnToLauncherRequested?.Invoke();
+    }
+    
     private void PlayMusic(string bgmPath)
     {
         if (string.IsNullOrWhiteSpace(bgmPath)) return;
+        if (!EnableBgm) return;
         if (bgmPath == _currentBgmPath) return;
         try
         {
@@ -51,7 +104,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
     [ObservableProperty]
     private System.Collections.Generic.List<MyBook.Models.Chapter> _availableChapters = new();
 
-    // 记录玩家已做出的选择（以 StoryChoice.Id 标识）
+    // 记录玩家已做出的选择
     private readonly System.Collections.Generic.HashSet<string> _chosenChoiceIds = new();
 
     public System.Collections.Generic.IReadOnlyCollection<string> ChosenChoices => _chosenChoiceIds;
@@ -62,9 +115,14 @@ public partial class StoryViewModelRuntime : ViewModelBase
         _historyStack = new Stack<string>();
     }
 
-    /// <summary>
-    /// Refresh the available chapters from the data service (UI can call this to get latest list)
-    /// </summary>
+    // Save slots and metadata
+    [ObservableProperty]
+    private System.Collections.ObjectModel.ObservableCollection<MyBook.Models.SaveEntryMetadata> _saveSlots = new();
+
+    [ObservableProperty]
+    private string? _currentSaveSlot;
+
+   
     public async Task RefreshAvailableChaptersAsync()
     {
         try
@@ -77,9 +135,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
         catch { }
     }
 
-    /// <summary>
-    /// 初始化并加载故事
-    /// </summary>
+   
     public async Task InitializeAsync()
     {
         await _dataService.InitializeDatabaseAsync();
@@ -89,14 +145,13 @@ public partial class StoryViewModelRuntime : ViewModelBase
         {
             await LoadChapterAsync(chapters.First().Id);
         }
+        // load existing save slots
+        try { await RefreshSaveSlotsAsync(); } catch { }
     }
 
-    /// <summary>
-    /// 加载指定章节
-    /// </summary>
+  
     public async Task LoadChapterAsync(string chapterId)
     {
-        // Refresh available chapters so runtime has up-to-date ordering and ids
         try
         {
             var chapters = await _dataService.GetChaptersAsync();
@@ -118,9 +173,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
         OnPropertyChanged(nameof(CanGoToNextChapter));
     }
 
-    /// <summary>
-    /// 当节点改变时通知相关属性更新
-    /// </summary>
+   
     partial void OnCurrentNodeChanged(StoryNodeExtended? value)
     {
         
@@ -143,6 +196,10 @@ public partial class StoryViewModelRuntime : ViewModelBase
                 BackgroundImage = newBg;
             }
         }
+        
+        // 启动打字机效果
+        StartTypewriterEffect(value?.Text ?? string.Empty);
+        
         OnPropertyChanged(nameof(CanNext));
         OnPropertyChanged(nameof(CanPrev));
         OnPropertyChanged(nameof(HasChoices));
@@ -169,21 +226,67 @@ public partial class StoryViewModelRuntime : ViewModelBase
     }
 
     /// <summary>
-    /// 检查是否可以前进
+    /// 启动打字机效果
     /// </summary>
+    private void StartTypewriterEffect(string text)
+    {
+        // 如果正在读档中，跳过打字机效果
+        if (_suppressTypewriter)
+        {
+            DisplayedText = text;
+            IsTyping = false;
+            return;
+        }
+        
+        if (!EnableTypewriter || string.IsNullOrEmpty(text))
+        {
+            // 不使用打字机效果，直接显示
+            DisplayedText = text;
+            IsTyping = false;
+            return;
+        }
+
+        // 先停止任何正在进行的打字机效果
+        _typewriter.Complete();
+        
+        IsTyping = true;
+        _ = _typewriter.StartTypingAsync(
+            text,
+            displayed => 
+            {
+                // 在UI线程更新
+                Avalonia.Threading.Dispatcher.UIThread.Post(() => DisplayedText = displayed);
+            },
+            () => 
+            {
+                // 完成回调
+                Avalonia.Threading.Dispatcher.UIThread.Post(() => IsTyping = false);
+            }
+        );
+    }
+
+    /// <summary>
+    /// 跳过打字机效果，立即显示完整文本
+    /// </summary>
+    [RelayCommand]
+    private void SkipTypewriter()
+    {
+        if (IsTyping)
+        {
+            _typewriter.Complete();
+            DisplayedText = _typewriter.FullText;
+            IsTyping = false;
+        }
+    }
+
     public bool CanNext => CurrentNode?.NextId != null && !HasVisibleChoices;
 
-    /// <summary>
-    /// 检查是否可以返回
-    /// </summary>
+    
     public bool CanPrev => CurrentNode?.PrevId != null && !HasVisibleChoices;
 
-    /// <summary>
-    /// 检查是否有选项
-    /// </summary>
+  
     public bool HasChoices => CurrentNode?.Choices.Count > 0;
 
-    // Expose choices but filter out '继续阅读' when the runtime will show the Next Chapter flow
     public System.Collections.Generic.IEnumerable<MyBook.Models.StoryChoice> VisibleChoices
     {
         get
@@ -191,11 +294,9 @@ public partial class StoryViewModelRuntime : ViewModelBase
             if (CurrentNode?.Choices == null) return System.Linq.Enumerable.Empty<MyBook.Models.StoryChoice>();
             return CurrentNode.Choices.Where(c => {
                 var t = c.Text ?? string.Empty;
-                // always hide '继续' continuation style options
                 if (t.IndexOf("继续", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-                // hide one-time choices that have already been chosen
                 if (c.IsOneTime && !string.IsNullOrWhiteSpace(c.Id) && _chosenChoiceIds.Contains(c.Id)) return false;
-                // otherwise show
+              
                 return true;
             });
         }
@@ -203,20 +304,15 @@ public partial class StoryViewModelRuntime : ViewModelBase
 
     public bool HasVisibleChoices => VisibleChoices.Any();
 
-    /// <summary>
-    /// 是否允许重新开始（当存在可见选项时禁止重新开始）
-    /// </summary>
+
     public bool CanRestart => !HasVisibleChoices;
 
-    /// <summary>
-    /// 是否可以前往下一章（当当前节点是结局且后续章节存在时）
-    /// </summary>
+   
     public bool CanGoToNextChapter
     {
         get
         {
-            // Consider chapter end when current node is explicitly an Ending
-            // or when it has no NextId and no *visible* choices (we treat continuation-only choices as invisible)
+
             if (CurrentNode == null) return false;
             bool hasVisibleChoices = false;
             if (CurrentNode.Choices != null)
@@ -226,7 +322,6 @@ public partial class StoryViewModelRuntime : ViewModelBase
                     return t.IndexOf("继续", StringComparison.OrdinalIgnoreCase) < 0;
                 });
             }
-            // 如果节点标记为结局，则只有在没有 EndingCondition 或满足 EndingCondition 时才视为结局
             bool endsByCondition = true;
             if (CurrentNode.IsEnding && !string.IsNullOrWhiteSpace(CurrentNode.EndingCondition))
             {
@@ -245,22 +340,19 @@ public partial class StoryViewModelRuntime : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanNext))]
     private async Task NextAsync()
     {
-        if (HasVisibleChoices) return; // 禁止在存在可见选项时使用下一页按钮
+        if (HasVisibleChoices) return; 
         if (CurrentNode?.NextId != null)
         {
             await NavigateToNodeAsync(CurrentNode.NextId);
         }
     }
 
-    /// <summary>
-    /// 当前章节结局后前往下一章节
-    /// </summary>
+
     [RelayCommand(CanExecute = nameof(CanGoToNextChapter))]
     private async Task GoToNextChapterAsync()
     {
         if (string.IsNullOrWhiteSpace(_currentChapterId)) return;
 
-        // Refresh chapter list to ensure runtime has the latest chapters (editor may add chapters at runtime)
         try
         {
             var chapters = await _dataService.GetChaptersAsync();
@@ -277,9 +369,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
         }
     }
 
-    /// <summary>
-    /// 选择并加载指定章节
-    /// </summary>
+
     [RelayCommand]
     private async Task SelectChapterAsync(string? chapterId)
     {
@@ -287,22 +377,18 @@ public partial class StoryViewModelRuntime : ViewModelBase
         await LoadChapterAsync(chapterId);
     }
 
-    /// <summary>
-    /// 返回上一页
-    /// </summary>
+   
     [RelayCommand(CanExecute = nameof(CanPrev))]
     private async Task PrevAsync()
     {
-        if (HasVisibleChoices) return; // 禁止在存在可见选项时使用上一页
+        if (HasVisibleChoices) return; 
         if (CurrentNode?.PrevId != null)
         {
             await NavigateToNodeAsync(CurrentNode.PrevId);
         }
     }
 
-    /// <summary>
-    /// 根据选择导航
-    /// </summary>
+ 
     [RelayCommand]
     private async Task NavigateAsync(string? targetNodeId)
     {
@@ -312,9 +398,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
         }
     }
 
-    /// <summary>
-    /// 根据一个选择（Choice）执行导航：可在同章内跳转节点，或跳转到另一个章节（决策树分支）
-    /// </summary>
+ 
     [RelayCommand]
     private async Task ChooseAsync(MyBook.Models.StoryChoice? choice)
     {
@@ -326,7 +410,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
 
         FileLogger.Log($"ChooseAsync invoked: Id={choice.Id}, TargetChapterId={choice.TargetChapterId}, TargetNodeId={choice.TargetNodeId}");
 
-        // 记录玩家已选择的选项（以 choice.Id 为标识）
+    
         try
         {
             if (!string.IsNullOrWhiteSpace(choice.Id)) _chosenChoiceIds.Add(choice.Id);
@@ -336,7 +420,7 @@ public partial class StoryViewModelRuntime : ViewModelBase
             FileLogger.Log($"Error recording chosen id: {ex}");
         }
 
-        // 优先使用 TargetNodeId（若填写），否则尝试按 TargetChapterId 处理。
+      
         if (!string.IsNullOrWhiteSpace(choice.TargetNodeId))
         {
             await NavigateToNodeAsync(choice.TargetNodeId);
@@ -346,32 +430,29 @@ public partial class StoryViewModelRuntime : ViewModelBase
 
         if (!string.IsNullOrWhiteSpace(choice.TargetChapterId))
         {
-            // 如果 TargetChapterId 实际上是一个章节 id，则加载章节；否则把它当作 node id 的备用跳转（编辑器可能把 node id 填入了错误的字段）
             try
             {
                 var possibleChapter = await _dataService.GetChapterAsync(choice.TargetChapterId);
                 if (possibleChapter != null)
                 {
                     await LoadChapterAsync(choice.TargetChapterId);
-                    // persist game state after chapter jump
+                   
                     try { await _dataService.SaveGameStateAsync("default", new MyBook.Models.GameState { ChosenChoiceIds = _chosenChoiceIds.ToList(), CurrentChapterId = choice.TargetChapterId }); } catch { }
                     return;
                 }
             }
             catch { }
 
-            // 退化处理：把 TargetChapterId 当作 node id 进行跳转尝试
+         
             await NavigateToNodeAsync(choice.TargetChapterId);
             try { await _dataService.SaveGameStateAsync("default", new MyBook.Models.GameState { ChosenChoiceIds = _chosenChoiceIds.ToList(), CurrentChapterId = _currentChapterId, CurrentNodeId = choice.TargetChapterId }); } catch { }
             return;
         }
-        // if neither target specified, still persist current chosen set
+       
         try { await _dataService.SaveGameStateAsync("default", new MyBook.Models.GameState { ChosenChoiceIds = _chosenChoiceIds.ToList(), CurrentChapterId = _currentChapterId, CurrentNodeId = CurrentNode?.Id }); } catch { }
     }
 
-    /// <summary>
-    /// 导航到指定节点
-    /// </summary>
+  
     private async Task NavigateToNodeAsync(string nodeId)
     {
         if (string.IsNullOrWhiteSpace(nodeId))
@@ -408,8 +489,6 @@ public partial class StoryViewModelRuntime : ViewModelBase
             FileLogger.Log($"NavigateToNodeAsync: navigated after DB lookup to '{trimmed}' (chapter {_currentChapterId})");
             return;
         }
-
-        // Fallback: try searching all available chapters for a matching node id (exact or suffix match)
         try
         {
             if (AvailableChapters != null)
@@ -503,6 +582,180 @@ public partial class StoryViewModelRuntime : ViewModelBase
         if (chapters.Any())
         {
             await LoadChapterAsync(chapters.First().Id);
+        }
+    }
+
+    [RelayCommand]
+    public async Task RefreshSaveSlotsAsync()
+    {
+        try
+        {
+            var entries = await _dataService.ListSaveSlotsAsync();
+            SaveSlots.Clear();
+            foreach (var e in entries)
+            {
+                SaveSlots.Add(e);
+            }
+        }
+        catch (Exception ex)
+        {
+            FileLogger.Log($"RefreshSaveSlotsAsync error: {ex}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task QuickSaveAsync()
+    {
+        var slot = "quicksave";
+        try
+        {
+            var entry = new MyBook.Models.SaveEntry
+            {
+                Version = 1,
+                Meta = new MyBook.Models.SaveEntryMeta { Slot = slot, Name = "QuickSave", UpdatedAt = DateTime.UtcNow, CreatedAt = DateTime.UtcNow },
+                State = new MyBook.Models.GameState { ChosenChoiceIds = _chosenChoiceIds.ToList(), CurrentChapterId = _currentChapterId, CurrentNodeId = CurrentNode?.Id },
+                Context = new MyBook.Models.SaveEntryContext { CurrentChapterId = _currentChapterId, CurrentNodeId = CurrentNode?.Id, BackgroundImage = BackgroundImage, CurrentBgmPath = _currentBgmPath }
+            };
+            await _dataService.SaveRawSlotAsync(slot, entry);
+            await RefreshSaveSlotsAsync();
+        }
+        catch (Exception ex)
+        {
+            FileLogger.Log($"QuickSaveAsync error: {ex}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task QuickLoadAsync()
+    {
+        var slot = "quicksave";
+        try
+        {
+            var entry = await _dataService.LoadRawSlotAsync(slot);
+            if (entry == null) return;
+            
+            // 开始读档，抑制打字机效果直到最终节点
+            _suppressTypewriter = true;
+            
+            // restore chosen ids
+            _chosenChoiceIds.Clear();
+            if (entry.State?.ChosenChoiceIds != null)
+            {
+                foreach (var id in entry.State.ChosenChoiceIds) _chosenChoiceIds.Add(id);
+            }
+            // restore simple state and navigate
+            if (!string.IsNullOrWhiteSpace(entry.Context?.CurrentChapterId))
+            {
+                await LoadChapterAsync(entry.Context.CurrentChapterId);
+            }
+            
+            // 关闭抑制，让最终的节点显示打字机效果
+            _suppressTypewriter = false;
+            
+            if (!string.IsNullOrWhiteSpace(entry.Context?.CurrentNodeId))
+            {
+                await NavigateToNodeAsync(entry.Context.CurrentNodeId);
+            }
+        }
+        catch (Exception ex)
+        {
+            _suppressTypewriter = false;
+            FileLogger.Log($"QuickLoadAsync error: {ex}");
+        }
+    }
+
+    public async Task SaveToSlotAsync(string slot, string name)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) slot = $"slot_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
+        try
+        {
+            var entry = new MyBook.Models.SaveEntry
+            {
+                Version = 1,
+                Meta = new MyBook.Models.SaveEntryMeta { Slot = slot, Name = name ?? slot, UpdatedAt = DateTime.UtcNow, CreatedAt = DateTime.UtcNow },
+                State = new MyBook.Models.GameState { ChosenChoiceIds = _chosenChoiceIds.ToList(), Variables = new Dictionary<string, string>(), CurrentChapterId = _currentChapterId, CurrentNodeId = CurrentNode?.Id },
+                Context = new MyBook.Models.SaveEntryContext { CurrentChapterId = _currentChapterId, CurrentNodeId = CurrentNode?.Id, BackgroundImage = BackgroundImage, CurrentBgmPath = _currentBgmPath }
+            };
+            await _dataService.SaveRawSlotAsync(slot, entry);
+            CurrentSaveSlot = slot;
+            await RefreshSaveSlotsAsync();
+        }
+        catch (Exception ex)
+        {
+            FileLogger.Log($"SaveToSlotAsync error: {ex}");
+            throw;
+        }
+    }
+
+    public async Task LoadSlotAsync(string slot)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) return;
+        try
+        {
+            var entry = await _dataService.LoadRawSlotAsync(slot);
+            if (entry == null) return;
+            
+            // 开始读档，抑制打字机效果直到最终节点
+            _suppressTypewriter = true;
+            
+            // restore chosen ids
+            _chosenChoiceIds.Clear();
+            if (entry.State?.ChosenChoiceIds != null)
+            {
+                foreach (var id in entry.State.ChosenChoiceIds) _chosenChoiceIds.Add(id);
+            }
+            // restore variables
+            try
+            {
+                if (entry.State?.Variables != null)
+                {
+                    foreach (var kv in entry.State.Variables)
+                    {
+                        // current implementation does not have VM-level Variables dictionary; if needed add later
+                    }
+                }
+            }
+            catch { }
+
+            // navigate to chapter/node
+            if (!string.IsNullOrWhiteSpace(entry.Context?.CurrentChapterId))
+            {
+                await LoadChapterAsync(entry.Context.CurrentChapterId);
+            }
+            
+            // 关闭抑制，让最终的节点显示打字机效果
+            _suppressTypewriter = false;
+            
+            if (!string.IsNullOrWhiteSpace(entry.Context?.CurrentNodeId))
+            {
+                await NavigateToNodeAsync(entry.Context.CurrentNodeId);
+            }
+            CurrentSaveSlot = slot;
+        }
+        catch (Exception ex)
+        {
+            _suppressTypewriter = false;
+            FileLogger.Log($"LoadSlotAsync error: {ex}");
+            throw;
+        }
+    }
+
+    public async Task DeleteSaveSlotAsync(string slot)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) return;
+        try
+        {
+            await _dataService.DeleteSaveSlotAsync(slot);
+            if (string.Equals(CurrentSaveSlot, slot, StringComparison.OrdinalIgnoreCase))
+            {
+                CurrentSaveSlot = null;
+            }
+            await RefreshSaveSlotsAsync();
+        }
+        catch (Exception ex)
+        {
+            FileLogger.Log($"DeleteSaveSlotAsync error: {ex}");
+            throw;
         }
     }
 }

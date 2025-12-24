@@ -30,6 +30,7 @@
             <Setter Property="Transitions">
                 <Transitions>
                     <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.16"/>
                 </Transitions>
             </Setter>
         </Style>
@@ -49,6 +50,7 @@
             <Setter Property="Transitions">
                 <Transitions>
                     <BrushTransition Property="Background" Duration="0:0:0.16"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
                 </Transitions>
             </Setter>
         </Style>
@@ -90,11 +92,94 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <!-- 背景图片: 跨整个 Grid -->
+        <!-- 背景图片: 跨整个 Grid（放在最底层） -->
          <Image Grid.Row="0" Grid.RowSpan="4"
              Source="{Binding BackgroundImage, Converter={StaticResource PathToBitmapConverter}}"
              Stretch="UniformToFill"
-             Opacity="0.92"/>
+             Opacity="0.94"/>
+
+        <!-- 柔和遮罩叠加，保持兼容性 -->
+        <Border Grid.Row="0" Grid.RowSpan="4"
+            Background="#55000000"
+            IsHitTestVisible="False"/>
+        
+        <!-- 左上角音量控制面板 -->
+        <Border Grid.Row="0" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Background="#66000000"
+                CornerRadius="10"
+                Padding="14,10"
+                Margin="-15,-15,0,0"
+                Opacity="0.7">
+            <Border.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Border.Transitions>
+            <Border.Styles>
+                <Style Selector="Border:pointerover">
+                    <Setter Property="Opacity" Value="1.0"/>
+                </Style>
+            </Border.Styles>
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <!-- 文字音效开关 -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="文字音效" 
+                               Foreground="#FFFFFF" 
+                               FontSize="13"
+                               VerticalAlignment="Center"
+                               Width="90"/>
+                    <ToggleSwitch IsChecked="{Binding EnableTypeSound}"
+                                  OnContent="开"
+                                  OffContent="关"
+                                  Padding="0"
+                                  Margin="0"
+                                  VerticalAlignment="Center"/>
+                </StackPanel>
+                <!-- 背景音乐开关 -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="背景音乐" 
+                               Foreground="#FFFFFF" 
+                               FontSize="13"
+                               VerticalAlignment="Center"
+                               Width="90"/>
+                    <ToggleSwitch IsChecked="{Binding EnableBgm}"
+                                  OnContent="开"
+                                  OffContent="关"
+                                  Padding="0"
+                                  Margin="0"
+                                  VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <!-- 右上角返回主菜单按钮 -->
+        <Button Grid.Row="0" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Content="返回主菜单"
+                Command="{Binding ReturnToLauncherCommand}"
+                Background="#66000000"
+                Foreground="#BBFFFFFF"
+                FontSize="13"
+                CornerRadius="10"
+                Padding="14,10"
+                Margin="0,-15,-15,0"
+                Cursor="Hand"
+                Opacity="0.7">
+            <Button.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Button.Transitions>
+            <Button.Styles>
+                <Style Selector="Button:pointerover">
+                    <Setter Property="Opacity" Value="1.0"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Style>
+            </Button.Styles>
+        </Button>
 
         <!-- 选项按钮区域：放在文本之上 -->
         <ItemsControl Grid.Row="1" 
@@ -119,30 +204,53 @@
         </ItemsControl>
 
         <!-- 故事文本显示区域：位于选项下方的小面板 -->
+        <!-- 点击可跳过打字机效果 -->
+        <!-- 使用深色半透明背景 + 白色文字确保高对比度 -->
         <Border Grid.Row="2"
                 VerticalAlignment="Bottom"
-                Background="#55FFFFFF"
-                CornerRadius="12"
-                Padding="18"
-                BorderBrush="#DADADA"
+                Background="#D0161616"
+                CornerRadius="14"
+                Padding="20"
+                BorderBrush="#55FFFFFF"
                 BorderThickness="1"
-                MaxHeight="220"
-                Margin="0,0,0,8">
+                MaxHeight="260"
+                Margin="0,0,0,10"
+                Cursor="Hand"
+                PointerPressed="OnTextAreaClicked">
             <ScrollViewer>
-                <TextBlock Text="{Binding CurrentNode.Text}" 
+                <TextBlock Text="{Binding DisplayedText}" 
                           TextWrapping="Wrap"
-                          FontSize="17"
-                          LineHeight="28"
-                          Foreground="#0D0D0D"/>
+                          FontFamily="SimSun, 宋体, Microsoft YaHei, sans-serif"
+                          FontSize="18"
+                          LineHeight="30"
+                          Foreground="#F5F5F5"
+                          Opacity="0.98"
+                          MaxWidth="720"/>
             </ScrollViewer>
         </Border>
 
         <!-- 导航按钮区域 -->
-        <StackPanel Grid.Row="3" 
-                   Orientation="Horizontal" 
-                   HorizontalAlignment="Center"
-                   Spacing="12"
-                   Margin="0,20,0,0">
+         <StackPanel Grid.Row="3" 
+             Orientation="Horizontal" 
+             HorizontalAlignment="Center"
+             Spacing="12"
+             Margin="0,20,0,0">
+             <!-- Save / Load quick buttons -->
+             <Button Classes="nav"
+                 Content="保存"
+                 Command="{Binding QuickSaveCommand}"
+                 Padding="12,8"
+                 FontSize="13"
+                 CornerRadius="6"
+                 MinWidth="80"/>
+
+             <Button Classes="nav"
+                 Content="载入"
+                 Command="{Binding QuickLoadCommand}"
+                 Padding="12,8"
+                 FontSize="13"
+                 CornerRadius="6"
+                 MinWidth="80"/>
             
             <Button Classes="nav"
                    Content="上一页" 
@@ -178,6 +286,13 @@
                                      FontSize="14"
                                      CornerRadius="6"
                                      MinWidth="100"/>
+            <Button Classes="nav"
+                   Content="管理存档"
+                   Click="OnManageSavesClicked"
+                   Padding="12,8"
+                   FontSize="13"
+                   CornerRadius="6"
+                   MinWidth="100"/>
         </StackPanel>
     </Grid>
 

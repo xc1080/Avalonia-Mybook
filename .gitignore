@@ -1,0 +1,35 @@
+# Build results
+bin/
+obj/
+out/
+publish/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+
+# Logs
+*.log
+
+# Database files (keep schema but not data)
+*.db
+*.db-shm
+*.db-wal
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# NuGet packages
+packages/
+*.nupkg

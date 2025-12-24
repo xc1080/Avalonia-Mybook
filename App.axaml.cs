@@ -13,10 +13,13 @@ namespace MyBook;
 public partial class App : Application
 {
     public static bool IsEditorMode { get; set; }
+    public static bool IsPublishedVersion { get; private set; }
 
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        // 检查是否为发布版本
+        IsPublishedVersion = PublishService.IsPublishedVersion();
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -36,6 +39,27 @@ public partial class App : Application
                 };
 
                 _ = viewModel.InitializeCommand.ExecuteAsync(null);
+            }
+            else if (IsPublishedVersion)
+            {
+                // 发布版本：创建简化的启动器或直接进入游戏
+                var config = PublishService.GetPublishConfig();
+                var includeEditor = config.TryGetValue("IncludeEditor", out var val) && val == "True";
+                var novelName = config.TryGetValue("NovelName", out var name) ? name : "视觉小说";
+
+                if (includeEditor)
+                {
+                    // 包含编辑器，显示启动器
+                    desktop.MainWindow = new LauncherWindow
+                    {
+                        Title = novelName
+                    };
+                }
+                else
+                {
+                    // 纯播放器模式，显示精简启动器
+                    desktop.MainWindow = new PublishedLauncherWindow(novelName);
+                }
             }
             else
             {

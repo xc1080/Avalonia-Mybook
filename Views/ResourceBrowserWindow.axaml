@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MyBook.Views.ResourceBrowserWindow"
+        Title="资源浏览器"
+        Width="700" Height="500"
+        Background="#FAFAFA"
+        WindowStartupLocation="CenterOwner">
+    
+    <Window.Styles>
+        <Style Selector="Button.browser-primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style Selector="Button.browser-primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        
+        <Style Selector="Button.browser-secondary">
+            <Setter Property="Background" Value="#81C784"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#66BB6A"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style Selector="Button.browser-secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#A5D6A7"/>
+        </Style>
+        
+        <Style Selector="Button.browser-neutral">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="Foreground" Value="#2E7D32"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#C8E6C9"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style Selector="Button.browser-neutral:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#C8E6C9"/>
+        </Style>
+        
+        <!-- 列表项样式 -->
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="#C8E6C9"/>
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#E8F5E9"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid Margin="20" RowDefinitions="Auto,*,Auto,Auto">
+        <!-- 顶部：标题和浏览按钮 -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,15">
+            <TextBlock x:Name="ListTitleText" Text="可用资源" FontSize="18" FontWeight="SemiBold" Foreground="#2E7D32" VerticalAlignment="Center"/>
+            <Button Grid.Column="1" x:Name="BrowseFolderBtn" Classes="browser-secondary" Content="浏览文件夹" Margin="0,0,10,0"/>
+            <Button Grid.Column="2" x:Name="BrowseFileBtn" Classes="browser-secondary" Content="选择文件"/>
+        </Grid>
+        
+        <!-- 资源列表 -->
+        <Border Grid.Row="1" Background="White" BorderBrush="#C8E6C9" BorderThickness="1" CornerRadius="6" Padding="8">
+            <ListBox x:Name="ResourceList" Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Border Background="{Binding FileTypeBackground}" CornerRadius="4" Padding="8,6" VerticalAlignment="Center" MinWidth="40">
+                                <TextBlock Text="{Binding FileTypeLabel}" FontSize="11" Foreground="{Binding FileTypeForeground}" FontWeight="Medium" HorizontalAlignment="Center"/>
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding DisplayName}" FontWeight="Medium" FontSize="14" Foreground="#212121"/>
+                                <TextBlock Text="{Binding RelativePath}" FontSize="11" Foreground="#757575"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        
+        <!-- 当前路径和选中信息 -->
+        <Border Grid.Row="2" Background="#E8F5E9" CornerRadius="6" Padding="12" Margin="0,12,0,12">
+            <StackPanel Spacing="6">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="当前目录:" FontSize="12" Foreground="#388E3C" FontWeight="Medium"/>
+                    <TextBlock x:Name="CurrentPathText" Text="..." FontSize="12" Foreground="#2E7D32" TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="已选择:" FontSize="12" Foreground="#388E3C" FontWeight="Medium"/>
+                    <TextBlock x:Name="SelectedPathText" Text="(无)" FontSize="12" Foreground="#1B5E20" FontWeight="SemiBold"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <!-- 底部按钮 -->
+        <Grid Grid.Row="3" ColumnDefinitions="*,Auto,Auto">
+            <Button Grid.Column="1" x:Name="CancelBtn" Classes="browser-neutral" Content="取消" Margin="0,0,10,0" MinWidth="90"/>
+            <Button Grid.Column="2" x:Name="ConfirmBtn" Classes="browser-primary" Content="确定" MinWidth="90" IsEnabled="False"/>
+        </Grid>
+    </Grid>
+</Window>

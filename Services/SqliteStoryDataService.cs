@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace MyBook.Services;
 
 using System;
@@ -302,8 +304,6 @@ ON CONFLICT(Id) DO UPDATE SET Title=$title, OrderIndex=$idx, Description=$desc";
         await _semaphore.WaitAsync();
         try
         {
-            // Defensive: if a node with same Id exists but belongs to a different chapter,
-            // avoid overwriting it by generating a new unique id prefixed with the chapter id.
             var csCheck = new SqliteConnectionStringBuilder { DataSource = _dbPath }.ToString();
             using (var connCheck = new SqliteConnection(csCheck))
             {
@@ -317,7 +317,6 @@ ON CONFLICT(Id) DO UPDATE SET Title=$title, OrderIndex=$idx, Description=$desc";
                     var existingChapterId = existing.ToString();
                     if (!string.Equals(existingChapterId, node.ChapterId, StringComparison.OrdinalIgnoreCase))
                     {
-                        // generate a new id that includes chapter prefix to avoid collision
                         if (!node.Id.StartsWith(node.ChapterId + "_"))
                         {
                             node.Id = $"{node.ChapterId}_{node.Id}";
@@ -443,6 +442,146 @@ ON CONFLICT(Slot) DO UPDATE SET Data=$data, UpdatedAt=$updated";
                 return System.Text.Json.JsonSerializer.Deserialize<MyBook.Models.GameState>(s);
             }
             catch { return null; }
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
+    // New: Save structured SaveEntry into GameStates.Data as JSON (backward-compatible)
+    public async Task SaveRawSlotAsync(string slot, MyBook.Models.SaveEntry entry)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) slot = "default";
+        await InitializeDatabaseAsync();
+        await _semaphore.WaitAsync();
+        try
+        {
+            var cs = new SqliteConnectionStringBuilder { DataSource = _dbPath }.ToString();
+            using var conn = new SqliteConnection(cs);
+            await conn.OpenAsync();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = @"INSERT INTO GameStates (Slot, Data, UpdatedAt) VALUES ($slot,$data,$updated)
+ON CONFLICT(Slot) DO UPDATE SET Data=$data, UpdatedAt=$updated";
+            cmd.Parameters.AddWithValue("$slot", slot);
+            var json = System.Text.Json.JsonSerializer.Serialize(entry);
+            cmd.Parameters.AddWithValue("$data", string.IsNullOrWhiteSpace(json) ? DBNull.Value : (object)json);
+            cmd.Parameters.AddWithValue("$updated", System.DateTime.UtcNow.ToString("o"));
+            await cmd.ExecuteNonQueryAsync();
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
+    public async Task<MyBook.Models.SaveEntry?> LoadRawSlotAsync(string slot)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) slot = "default";
+        await InitializeDatabaseAsync();
+        await _semaphore.WaitAsync();
+        try
+        {
+            var cs = new SqliteConnectionStringBuilder { DataSource = _dbPath }.ToString();
+            using var conn = new SqliteConnection(cs);
+            await conn.OpenAsync();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Data FROM GameStates WHERE Slot = $slot";
+            cmd.Parameters.AddWithValue("$slot", slot);
+            var res = await cmd.ExecuteScalarAsync();
+            if (res == null || res == DBNull.Value) return null;
+            var s = res.ToString();
+            if (string.IsNullOrWhiteSpace(s)) return null;
+            try
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<MyBook.Models.SaveEntry>(s);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
+    public async Task<List<MyBook.Models.SaveEntryMetadata>> ListSaveSlotsAsync()
+    {
+        var list = new List<MyBook.Models.SaveEntryMetadata>();
+        await InitializeDatabaseAsync();
+        await _semaphore.WaitAsync();
+        try
+        {
+            var cs = new SqliteConnectionStringBuilder { DataSource = _dbPath }.ToString();
+            using var conn = new SqliteConnection(cs);
+            await conn.OpenAsync();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Slot, Data, UpdatedAt FROM GameStates";
+            using var rdr = await cmd.ExecuteReaderAsync();
+            while (await rdr.ReadAsync())
+            {
+                var slotName = rdr.IsDBNull(0) ? string.Empty : rdr.GetString(0);
+                var data = rdr.IsDBNull(1) ? null : rdr.GetString(1);
+                var updated = rdr.IsDBNull(2) ? DateTime.MinValue : DateTime.Parse(rdr.GetString(2));
+                if (!string.IsNullOrWhiteSpace(data))
+                {
+                    try
+                    {
+                        var entry = System.Text.Json.JsonSerializer.Deserialize<MyBook.Models.SaveEntry>(data);
+                        if (entry != null)
+                        {
+                            var s = entry.Meta?.Slot ?? slotName;
+                            if (string.IsNullOrWhiteSpace(s)) continue; // skip invalid slot
+                            list.Add(new MyBook.Models.SaveEntryMetadata
+                            {
+                                Slot = s,
+                                Name = entry.Meta?.Name ?? entry.Meta?.Slot ?? slotName,
+                                UpdatedAt = entry.Meta?.UpdatedAt ?? updated,
+                                Version = entry.Version,
+                                ThumbnailLength = string.IsNullOrWhiteSpace(entry.Meta?.ThumbnailBase64) ? null : (int?)entry.Meta!.ThumbnailBase64!.Length,
+                                ShortDescription = entry.Context?.CurrentChapterId
+                            });
+                            continue;
+                        }
+                    }
+                    catch { }
+                }
+                // fallback minimal metadata
+                if (string.IsNullOrWhiteSpace(slotName)) continue; // skip rows without slot id
+                list.Add(new MyBook.Models.SaveEntryMetadata
+                {
+                    Slot = slotName,
+                    Name = slotName,
+                    UpdatedAt = updated,
+                    Version = 0,
+                    ThumbnailLength = null,
+                    ShortDescription = null
+                });
+            }
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+        return list.OrderByDescending(m => m.UpdatedAt).ToList();
+    }
+
+    public async Task DeleteSaveSlotAsync(string slot)
+    {
+        if (string.IsNullOrWhiteSpace(slot)) slot = "default";
+        await InitializeDatabaseAsync();
+        await _semaphore.WaitAsync();
+        try
+        {
+            var cs = new SqliteConnectionStringBuilder { DataSource = _dbPath }.ToString();
+            using var conn = new SqliteConnection(cs);
+            await conn.OpenAsync();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM GameStates WHERE Slot = $slot";
+            cmd.Parameters.AddWithValue("$slot", slot);
+            await cmd.ExecuteNonQueryAsync();
         }
         finally
         {

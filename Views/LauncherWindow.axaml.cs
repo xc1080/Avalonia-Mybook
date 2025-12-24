@@ -27,26 +27,44 @@ public partial class LauncherWindow : Window
         {
             Title = "选择章节",
             Width = 400,
-            Height = 300,
+            Height = 320,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            CanResize = false
+            CanResize = false,
+            Background = Avalonia.Media.Brushes.White
         };
+        
+        var panel = new StackPanel { Margin = new Avalonia.Thickness(20) };
+        
+        panel.Children.Add(new TextBlock 
+        { 
+            Text = "请选择要开始的章节：",
+            FontSize = 14,
+            FontWeight = Avalonia.Media.FontWeight.SemiBold,
+            Foreground = Avalonia.Media.Brushes.Black,
+            Margin = new Avalonia.Thickness(0, 0, 0, 15)
+        });
+        
         var listBox = new ListBox
         {
             ItemsSource = chapters,
             DisplayMemberBinding = new Avalonia.Data.Binding("Title"),
-            Margin = new Avalonia.Thickness(20, 20, 20, 10)
+            Height = 180,
+            Background = Avalonia.Media.Brushes.White,
+            Foreground = Avalonia.Media.Brushes.Black
         };
         var okButton = new Button
         {
             Content = "开始游戏",
             Width = 120,
-            Margin = new Avalonia.Thickness(0, 10, 0, 0),
-            IsEnabled = false
+            Height = 38,
+            Margin = new Avalonia.Thickness(0, 15, 0, 0),
+            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+            IsEnabled = false,
+            Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#4CAF50")),
+            Foreground = Avalonia.Media.Brushes.White
         };
         listBox.SelectionChanged += (s, e) => okButton.IsEnabled = listBox.SelectedItem != null;
         okButton.Click += (s, e) => dialog.Close(listBox.SelectedItem);
-        var panel = new StackPanel();
         panel.Children.Add(listBox);
         panel.Children.Add(okButton);
         dialog.Content = panel;
@@ -86,15 +104,17 @@ public partial class LauncherWindow : Window
         {
             Title = "错误",
             Width = 400,
-            Height = 150,
+            Height = 160,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             CanResize = false,
+            Background = Avalonia.Media.Brushes.White,
             Content = new StackPanel
             {
+                Margin = new Avalonia.Thickness(20),
                 Children =
                 {
-                    new TextBlock { Text = message, Margin = new Avalonia.Thickness(20,20,20,10), Foreground = Avalonia.Media.Brushes.Red },
-                    new Button { Content = "确定", Width = 100, Margin = new Avalonia.Thickness(0,10,0,0), HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center }
+                    new TextBlock { Text = message, Margin = new Avalonia.Thickness(0,0,0,15), Foreground = Avalonia.Media.Brushes.Red, FontSize = 14, TextWrapping = Avalonia.Media.TextWrapping.Wrap },
+                    new Button { Content = "确定", Width = 100, Height = 36, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#4CAF50")), Foreground = Avalonia.Media.Brushes.White }
                 }
             }
         };
@@ -105,5 +125,11 @@ public partial class LauncherWindow : Window
     private void OnExitClicked(object? sender, RoutedEventArgs e)
     {
         this.Close();
+    }
+
+    private void OnPublishClicked(object? sender, RoutedEventArgs e)
+    {
+        var publishWindow = new PublishWindow();
+        publishWindow.ShowDialog(this);
     }
 }

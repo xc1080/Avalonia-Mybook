@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:MyBook.ViewModels"
+        mc:Ignorable="d"
+        x:Class="MyBook.Views.SaveLoadWindow"
+        Title="存档管理"
+        Width="560" Height="420"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <Design.DataContext>
+        <vm:StoryViewModelRuntime />
+    </Design.DataContext>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8">
+            <TextBox x:Name="NameBox" Width="300" Watermark="输入存档名称或描述..." />
+            <Button Content="保存为..." Width="100" Click="OnSaveAsClicked" />
+            <Button Content="刷新" Width="80" Click="OnRefreshClicked" />
+        </StackPanel>
+
+        <ListBox Grid.Row="1" x:Name="SlotsList" Margin="0,8,0,8" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Width="220" />
+                        <TextBlock Text="{Binding ShortDescription}" Width="150" Opacity="0.8" />
+                        <TextBlock Text="{Binding UpdatedAt}" Width="140" Opacity="0.7" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="载入" Width="90" Click="OnLoadClicked" />
+            <Button Content="删除" Width="90" Click="OnDeleteClicked" />
+            <Button Content="关闭" Width="90" Click="OnCloseClicked" />
+        </StackPanel>
+    </Grid>
+</Window>

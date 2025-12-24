@@ -24,4 +24,10 @@ public interface IStoryDataService
     
     Task SaveGameStateAsync(string slot, MyBook.Models.GameState state);
     Task<MyBook.Models.GameState?> LoadGameStateAsync(string slot);
+    
+    // Extended save/load APIs for structured save entries (meta + state + context)
+    Task SaveRawSlotAsync(string slot, MyBook.Models.SaveEntry entry);
+    Task<MyBook.Models.SaveEntry?> LoadRawSlotAsync(string slot);
+    Task<List<MyBook.Models.SaveEntryMetadata>> ListSaveSlotsAsync();
+    Task DeleteSaveSlotAsync(string slot);
 }

@@ -1,0 +1,180 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+        x:Class="MyBook.Views.PublishWindow"
+        Title="发布视觉小说"
+        Width="520" Height="450"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="White">
+
+    <Window.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        <Style Selector="Button.primary:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#A5D6A7"/>
+        </Style>
+        
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#757575"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#9E9E9E"/>
+        </Style>
+        
+        <Style Selector="TextBox">
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#4CAF50"/>
+        </Style>
+        
+        <Style Selector="ComboBox">
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="30,25">
+        
+        <!-- 标题 -->
+        <StackPanel Grid.Row="0" Spacing="6" Margin="0,0,0,20">
+            <TextBlock Text="📦 发布视觉小说" 
+                      FontSize="24" 
+                      FontWeight="Bold"
+                      Foreground="#2E7D32"/>
+            <TextBlock Text="使用 dotnet publish 打包为独立可运行的程序" 
+                      FontSize="13"
+                      Foreground="#757575"/>
+        </StackPanel>
+
+        <!-- 配置区域 -->
+        <StackPanel Grid.Row="1" Spacing="16">
+            
+            <!-- 小说名称 -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="小说名称" 
+                          FontSize="14" 
+                          FontWeight="SemiBold"
+                          Foreground="#424242"/>
+                <TextBox Name="NovelNameTextBox" 
+                        Watermark="输入小说名称（将作为程序名）"
+                        Text="我的视觉小说"/>
+            </StackPanel>
+
+            <!-- 目标平台 -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="目标平台" 
+                          FontSize="14" 
+                          FontWeight="SemiBold"
+                          Foreground="#424242"/>
+                <ComboBox Name="RuntimeComboBox" 
+                         HorizontalAlignment="Stretch"
+                         SelectedIndex="0"/>
+            </StackPanel>
+
+            <!-- 保存位置 -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="保存位置" 
+                          FontSize="14" 
+                          FontWeight="SemiBold"
+                          Foreground="#424242"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Name="TargetPathTextBox" 
+                            Grid.Column="0"
+                            Watermark="选择保存目录"
+                            IsReadOnly="True"
+                            Margin="0,0,10,0"/>
+                    <Button Name="BrowseButton"
+                           Grid.Column="1"
+                           Classes="secondary"
+                           Content="浏览..."
+                           Width="80"
+                           Height="36"
+                           CornerRadius="4"
+                           Click="OnBrowseClicked"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- 预估大小 -->
+            <Border Background="#F5F5F5" 
+                   CornerRadius="6" 
+                   Padding="15,12">
+                <StackPanel Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="预估大小:" 
+                                  FontSize="13"
+                                  Foreground="#757575"
+                                  VerticalAlignment="Center"/>
+                        <TextBlock Name="EstimatedSizeText"
+                                  Text="计算中..." 
+                                  FontSize="13"
+                                  FontWeight="SemiBold"
+                                  Foreground="#424242"
+                                  VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="注意：需要安装 .NET SDK 才能发布" 
+                              FontSize="11"
+                              Foreground="#9E9E9E"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 进度条 -->
+            <StackPanel Name="ProgressPanel" Spacing="8" IsVisible="False">
+                <ProgressBar Name="PublishProgressBar" 
+                            Minimum="0" 
+                            Maximum="100" 
+                            Height="8"
+                            CornerRadius="4"
+                            Foreground="#4CAF50"/>
+                <TextBlock Name="ProgressText"
+                          Text="准备发布..."
+                          FontSize="12"
+                          Foreground="#757575"
+                          HorizontalAlignment="Center"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!-- 按钮区域 -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" Margin="0,20,0,0">
+            <Button Name="CancelButton"
+                   Grid.Column="1"
+                   Classes="secondary"
+                   Content="取消"
+                   Width="100"
+                   Height="40"
+                   CornerRadius="6"
+                   Margin="0,0,12,0"
+                   Click="OnCancelClicked"/>
+            <Button Name="PublishButton"
+                   Grid.Column="2"
+                   Classes="primary"
+                   Content="开始发布"
+                   Width="120"
+                   Height="40"
+                   CornerRadius="6"
+                   Click="OnPublishClicked"/>
+        </Grid>
+    </Grid>
+</Window>

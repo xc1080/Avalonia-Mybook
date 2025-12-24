@@ -15,7 +15,6 @@ using MyBook.Services;
 using Avalonia;
 using Avalonia.Controls;
 
-
 public partial class StoryEditorViewModel : ViewModelBase
 {
     public Action<Action<string?>>? RequestImageSelect;
@@ -106,9 +105,14 @@ public partial class StoryEditorViewModel : ViewModelBase
         }
     }
 
+    partial void OnSelectedNodeChanged(StoryNodeExtended? value)
+    {
+        // 节点变化时的处理逻辑
+    }
+
    
  
-    private async Task LoadNodesAsync(string chapterId)
+    private async Task LoadNodesAsync(string chapterId, string? restoreNodeId = null)
     {
         var nodes = await _dataService.GetNodesAsync(chapterId);
         Nodes.Clear();
@@ -117,7 +121,13 @@ public partial class StoryEditorViewModel : ViewModelBase
             Nodes.Add(node);
         }
 
-        System.Diagnostics.Debug.WriteLine($"[LoadNodes] ChapterId={chapterId}, NodeCount={nodes.Count()}");
+        // 恢复之前选中的节点
+        if (!string.IsNullOrEmpty(restoreNodeId))
+        {
+            SelectedNode = Nodes.FirstOrDefault(n => n.Id == restoreNodeId);
+        }
+
+        System.Diagnostics.Debug.WriteLine($"[LoadNodes] ChapterId={chapterId}, NodeCount={nodes.Count()}, Restored={restoreNodeId}");
     }
 
     
@@ -226,9 +236,10 @@ public partial class StoryEditorViewModel : ViewModelBase
         if (SelectedNode == null) return;
         var choice = new MyBook.Models.StoryChoice { Text = "新选项", TargetNodeId = string.Empty, TargetChapterId = null, Condition = null };
         SelectedNode.Choices.Add(choice);
+        var currentNodeId = SelectedNode.Id;
         await _dataService.SaveNodeAsync(SelectedNode, true);
         System.Diagnostics.Debug.WriteLine($"[AddChoiceAsync] Added choice to {SelectedNode.Id}");
-        await LoadNodesAsync(SelectedNode.ChapterId);
+        await LoadNodesAsync(SelectedNode.ChapterId, currentNodeId);
     }
 
     /// <summary>
@@ -239,9 +250,10 @@ public partial class StoryEditorViewModel : ViewModelBase
     {
         if (SelectedNode == null || choice == null) return;
         SelectedNode.Choices.Remove(choice);
+        var currentNodeId = SelectedNode.Id;
         await _dataService.SaveNodeAsync(SelectedNode, true);
         System.Diagnostics.Debug.WriteLine($"[RemoveChoiceAsync] Removed choice from {SelectedNode.Id}");
-        await LoadNodesAsync(SelectedNode.ChapterId);
+        await LoadNodesAsync(SelectedNode.ChapterId, currentNodeId);
     }
 
     /// <summary>
@@ -251,10 +263,11 @@ public partial class StoryEditorViewModel : ViewModelBase
     private async Task ToggleEndingAsync()
     {
         if (SelectedNode == null) return;
+        var currentNodeId = SelectedNode.Id;
         SelectedNode.Type = SelectedNode.Type == MyBook.Models.NodeType.Ending ? MyBook.Models.NodeType.Dialogue : MyBook.Models.NodeType.Ending;
         await _dataService.SaveNodeAsync(SelectedNode, true);
         System.Diagnostics.Debug.WriteLine($"[ToggleEndingAsync] Node {SelectedNode.Id} type set to {SelectedNode.Type}");
-        await LoadNodesAsync(SelectedNode.ChapterId);
+        await LoadNodesAsync(SelectedNode.ChapterId, currentNodeId);
     }
 
    
@@ -267,10 +280,11 @@ public partial class StoryEditorViewModel : ViewModelBase
             // 在保存前规范化本节点的选项目标（防止把 node id 填到 TargetChapterId）
             await NormalizeNodeChoicesAsync(SelectedNode);
 
+            var currentNodeId = SelectedNode.Id;
             await _dataService.SaveNodeAsync(SelectedNode, true);
             if (SelectedChapter != null)
             {
-                await LoadNodesAsync(SelectedChapter.Id);
+                await LoadNodesAsync(SelectedChapter.Id, currentNodeId);
             }
         }
         catch (Exception ex)
@@ -353,10 +367,9 @@ public partial class StoryEditorViewModel : ViewModelBase
         foreach (var choice in node.Choices)
         {
             if (choice == null) continue;
-            // 如果 TargetNodeId 为空，但 TargetChapterId 看起来像是 node id，则修正
+           
             if (string.IsNullOrWhiteSpace(choice.TargetNodeId) && !string.IsNullOrWhiteSpace(choice.TargetChapterId))
             {
-                // 先尝试按 node id 查询（目标被误填为 node id 的常见情况）
                 var possibleNode = await _dataService.GetNodeAsync(choice.TargetChapterId!);
                 if (possibleNode != null)
                 {
@@ -367,14 +380,13 @@ public partial class StoryEditorViewModel : ViewModelBase
                     continue;
                 }
 
-                // 如果字符串中包含 "_node_"，尝试根据命名规则解析章节 id
+               
                 if (choice.TargetChapterId!.Contains("_node_"))
                 {
                     var parts = choice.TargetChapterId.Split(new[] {"_node_"}, StringSplitOptions.None);
                     if (parts.Length >= 1)
                     {
                         var derivedChapterId = parts[0];
-                        // 将原值作为 TargetNodeId，章节字段填为推断值
                         choice.TargetNodeId = choice.TargetChapterId;
                         choice.TargetChapterId = derivedChapterId;
                         corrected++;
@@ -530,7 +542,8 @@ public partial class StoryEditorViewModel : ViewModelBase
             await LoadChaptersAsync();
             if (SelectedChapter != null && !string.IsNullOrWhiteSpace(SelectedChapter.Id))
             {
-                await LoadNodesAsync(SelectedChapter.Id);
+                var currentNodeId = SelectedNode?.Id;
+                await LoadNodesAsync(SelectedChapter.Id, currentNodeId);
             }
             System.Diagnostics.Debug.WriteLine($"[SaveChapterAsync] 保存完成，成功节点: {savedCount}，跳过: {skippedCount}，错误: {errorCount}");
             

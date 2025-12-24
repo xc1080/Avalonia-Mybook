@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="350"
+        x:Class="MyBook.Views.PublishedLauncherWindow"
+        Title="视觉小说"
+        Width="450" Height="380"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Background="White">
+
+    <Window.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#66BB6A"/>
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#388E3C"/>
+        </Style>
+        
+        <Style Selector="Button.outline">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#616161"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.outline:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="BorderBrush" Value="#757575"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="40,35">
+        
+        <!-- 标题 -->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Spacing="10" Margin="0,5,0,30">
+            <TextBlock Name="TitleText"
+                      Text="视觉小说" 
+                      FontSize="36" 
+                      FontWeight="Bold"
+                      HorizontalAlignment="Center"
+                      Foreground="#2E7D32"/>
+            <TextBlock Text="点击下方按钮开始游戏" 
+                      FontSize="14"
+                      HorizontalAlignment="Center"
+                      Foreground="#757575"/>
+        </StackPanel>
+
+        <!-- 按钮区域 -->
+        <StackPanel Grid.Row="1" 
+                   Spacing="14" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Stretch"
+                   MaxWidth="350">
+            
+            <Button Name="StartButton"
+                   Classes="primary"
+                   Height="70"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnStartClicked"
+                   Padding="25,15">
+                <StackPanel VerticalAlignment="Center" Spacing="4">
+                    <TextBlock Text="▶ 开始游戏" 
+                              FontSize="20" 
+                              FontWeight="SemiBold"
+                              Foreground="White"
+                              HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button Name="ExitButton"
+                   Classes="outline"
+                   Height="44"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnExitClicked"
+                   Margin="0,4,0,0">
+                <TextBlock Text="退出" 
+                          FontSize="14"
+                          Foreground="#616161"/>
+            </Button>
+        </StackPanel>
+
+        <!-- 底部信息 -->
+        <TextBlock Grid.Row="2"
+                  Text="Powered by MyBook Engine"
+                  FontSize="11"
+                  Foreground="#BDBDBD"
+                  HorizontalAlignment="Center"
+                  Margin="0,20,0,0"/>
+    </Grid>
+</Window>

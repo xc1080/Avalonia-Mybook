@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <!-- 保留 Models 文件夹 -->
+    <Folder Include="Assets\Characters\" />
     <Folder Include="Models\" />
 
     <!-- 不要手动引用 Views 下的 axaml，交给 SDK 自动管理 -->

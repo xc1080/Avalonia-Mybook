@@ -46,8 +46,6 @@ public enum NodeType
 public class VisualData
 {
     public string? BackgroundImage { get; set; }
-    public string? CharacterSprite { get; set; }
-    public CharacterPosition CharacterPosition { get; set; } = CharacterPosition.Center;
     public TransitionType Transition { get; set; } = TransitionType.None;
 }
 
@@ -58,14 +56,6 @@ public class AudioData
     public double BgmVolume { get; set; } = 0.8;
     public string? SeFile { get; set; }
     public string? VoiceFile { get; set; }
-}
-
-
-public enum CharacterPosition
-{
-    Left,
-    Center,
-    Right
 }
 
 

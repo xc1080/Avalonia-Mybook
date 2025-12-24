@@ -103,16 +103,17 @@ public class JsonStoryDataService : IStoryDataService
         return Task.FromResult(chapter);
     }
 
-    public async Task SaveChapterAsync(Chapter chapter)
+    public Task SaveChapterAsync(Chapter chapter)
     {
         _chapters[chapter.Id] = chapter;
         ScheduleSave();
+        return Task.CompletedTask;
     }
 
-    public async Task DeleteChapterAsync(string chapterId)
+    public Task DeleteChapterAsync(string chapterId)
     {
         _chapters.Remove(chapterId);
-        
+
         var nodesToRemove = _nodes.Where(n => n.Value.ChapterId == chapterId)
                                   .Select(n => n.Key)
                                   .ToList();
@@ -120,8 +121,9 @@ public class JsonStoryDataService : IStoryDataService
         {
             _nodes.Remove(nodeId);
         }
-        
+
         ScheduleSave();
+        return Task.CompletedTask;
     }
 
     public Task<List<StoryNodeExtended>> GetNodesAsync(string chapterId)
@@ -152,10 +154,11 @@ public class JsonStoryDataService : IStoryDataService
         }
     }
 
-    public async Task DeleteNodeAsync(string nodeId)
+    public Task DeleteNodeAsync(string nodeId)
     {
         _nodes.Remove(nodeId);
         ScheduleSave();
+        return Task.CompletedTask;
     }
 
     public async Task ImportFromTextAsync(string text, string chapterId)
@@ -361,6 +364,97 @@ public class JsonStoryDataService : IStoryDataService
         {
             WriteLog($"LoadGameStateAsync error: {ex}");
             return null;
+        }
+    }
+
+    // New: Save a structured SaveEntry (meta + state + context)
+    public async Task SaveRawSlotAsync(string slot, MyBook.Models.SaveEntry entry)
+    {
+        try
+        {
+            var file = Path.Combine(_resolvedDataPath, $"game_state_{(string.IsNullOrWhiteSpace(slot) ? "default" : slot)}.json");
+            var opts = new JsonSerializerOptions { WriteIndented = true };
+            // ensure meta fields
+            entry.Meta ??= new MyBook.Models.SaveEntryMeta { Slot = string.IsNullOrWhiteSpace(slot) ? "default" : slot };
+            entry.Meta.Slot = string.IsNullOrWhiteSpace(slot) ? "default" : slot;
+            entry.Meta.UpdatedAt = DateTime.UtcNow;
+            var json = JsonSerializer.Serialize(entry, opts);
+            await File.WriteAllTextAsync(file, json);
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"SaveRawSlotAsync error: {ex}");
+            throw;
+        }
+    }
+
+    public async Task<MyBook.Models.SaveEntry?> LoadRawSlotAsync(string slot)
+    {
+        try
+        {
+            var file = Path.Combine(_resolvedDataPath, $"game_state_{(string.IsNullOrWhiteSpace(slot) ? "default" : slot)}.json");
+            if (!File.Exists(file)) return null;
+            var json = await File.ReadAllTextAsync(file);
+            if (string.IsNullOrWhiteSpace(json)) return null;
+            return JsonSerializer.Deserialize<MyBook.Models.SaveEntry>(json);
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"LoadRawSlotAsync error: {ex}");
+            return null;
+        }
+    }
+
+    public async Task<List<MyBook.Models.SaveEntryMetadata>> ListSaveSlotsAsync()
+    {
+        var list = new List<MyBook.Models.SaveEntryMetadata>();
+        try
+        {
+            if (!Directory.Exists(_resolvedDataPath)) return list;
+            var files = Directory.GetFiles(_resolvedDataPath, "game_state_*.json");
+            foreach (var f in files)
+            {
+                try
+                {
+                    var json = await File.ReadAllTextAsync(f);
+                    if (string.IsNullOrWhiteSpace(json)) continue;
+                    var entry = JsonSerializer.Deserialize<MyBook.Models.SaveEntry>(json);
+                    if (entry != null)
+                    {
+                        var slotId = entry.Meta?.Slot ?? Path.GetFileNameWithoutExtension(f).Replace("game_state_", "");
+                        if (string.IsNullOrWhiteSpace(slotId)) continue; // skip invalid entries
+                        list.Add(new MyBook.Models.SaveEntryMetadata
+                        {
+                            Slot = slotId,
+                            Name = entry.Meta?.Name ?? entry.Meta?.Slot ?? Path.GetFileNameWithoutExtension(f),
+                            UpdatedAt = entry.Meta?.UpdatedAt ?? DateTime.MinValue,
+                            Version = entry.Version,
+                            ThumbnailLength = string.IsNullOrWhiteSpace(entry.Meta?.ThumbnailBase64) ? null : (int?)entry.Meta!.ThumbnailBase64!.Length,
+                            ShortDescription = entry.Context?.CurrentChapterId
+                        });
+                    }
+                }
+                catch { }
+            }
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"ListSaveSlotsAsync error: {ex}");
+        }
+        return list.OrderByDescending(m => m.UpdatedAt).ToList();
+    }
+
+    public async Task DeleteSaveSlotAsync(string slot)
+    {
+        try
+        {
+            var file = Path.Combine(_resolvedDataPath, $"game_state_{(string.IsNullOrWhiteSpace(slot) ? "default" : slot)}.json");
+            if (File.Exists(file)) File.Delete(file);
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"DeleteSaveSlotAsync error: {ex}");
+            throw;
         }
     }
 }

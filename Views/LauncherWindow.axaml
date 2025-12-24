@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
         x:Class="MyBook.Views.LauncherWindow"
         Title="MyBook - 视觉小说引擎"
-        Width="520" Height="580"
+        Width="520" Height="680"
         WindowStartupLocation="CenterScreen"
         CanResize="False"
         Background="White">
@@ -134,6 +134,24 @@
                               FontSize="13"
                               Foreground="White"
                               Opacity="0.92"/>
+                </StackPanel>
+            </Button>
+
+            <Button Name="PublishButton"
+                   Classes="outline"
+                   Height="78"
+                   HorizontalAlignment="Stretch"
+                   CornerRadius="8"
+                   Click="OnPublishClicked"
+                   Padding="25,18"
+                   HorizontalContentAlignment="Left">
+                <StackPanel VerticalAlignment="Center" Spacing="6">
+                    <TextBlock Text="📦 发布视觉小说" 
+                              FontSize="22" 
+                              FontWeight="SemiBold"/>
+                    <TextBlock Text="打包为独立可运行的程序" 
+                              FontSize="13"
+                              Opacity="0.75"/>
                 </StackPanel>
             </Button>
 

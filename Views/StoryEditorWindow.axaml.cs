@@ -1,10 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
 using MyBook.ViewModels;
-using System.Threading.Tasks;
 
 namespace MyBook.Views;
 
@@ -28,38 +29,40 @@ public partial class StoryEditorWindow : Window
             assetsPath = Path.GetFullPath(assetsPath);
             vm.RequestImageSelect = async callback =>
             {
-                if (!Directory.Exists(assetsPath))
+                // 使用新的资源浏览器
+                var picker = new ResourceBrowserWindow(
+                    "选择图片资源", 
+                    "图片",
+                    new[] { ".png", ".jpg", ".jpeg", ".bmp", ".ico", ".webp" });
+                var result = await picker.ShowDialog<ResourceBrowserResult?>(this);
+                if (result != null && !string.IsNullOrWhiteSpace(result.RelativePath))
                 {
-                    await ShowErrorDialog("资源目录不存在: " + assetsPath);
-                    callback(null);
-                    return;
+                    callback(result.RelativePath);
                 }
-
-                var resources = Directory.GetFiles(assetsPath)
-                    .Select(Path.GetFileName)
-                    .Where(f => f != null && (f.EndsWith(".png") || f.EndsWith(".jpg") || f.EndsWith(".jpeg") || f.EndsWith(".bmp") || f.EndsWith(".ico")))
-                    .Cast<string>();
-                var picker = new ResourcePickerWindow("选择图片资源", resources);
-                var result = await picker.ShowDialog<string?>(this);
-                callback(result);
+                else
+                {
+                    callback(null);
+                }
             };
             vm.RequestAudioSelect = async callback =>
             {
-                if (!Directory.Exists(assetsPath))
+                // 使用新的资源浏览器
+                var picker = new ResourceBrowserWindow(
+                    "选择音频资源",
+                    "音频",
+                    new[] { ".mp3", ".wav", ".ogg", ".flac" });
+                var result = await picker.ShowDialog<ResourceBrowserResult?>(this);
+                if (result != null && !string.IsNullOrWhiteSpace(result.RelativePath))
                 {
-                    await ShowErrorDialog("资源目录不存在: " + assetsPath);
-                    callback(null);
-                    return;
+                    callback(result.RelativePath);
                 }
-
-                var resources = Directory.GetFiles(assetsPath)
-                    .Select(Path.GetFileName)
-                    .Where(f => f != null && (f.EndsWith(".mp3") || f.EndsWith(".wav") || f.EndsWith(".ogg")))
-                    .Cast<string>();
-                var picker = new ResourcePickerWindow("选择音频资源", resources);
-                var result = await picker.ShowDialog<string?>(this);
-                callback(result);
+                else
+                {
+                    callback(null);
+                }
             };
+            
+
         }
     }
 
@@ -69,15 +72,17 @@ public partial class StoryEditorWindow : Window
         {
             Title = "错误",
             Width = 400,
-            Height = 150,
+            Height = 160,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             CanResize = false,
+            Background = Avalonia.Media.Brushes.White,
             Content = new StackPanel
             {
+                Margin = new Avalonia.Thickness(20),
                 Children =
                 {
-                    new TextBlock { Text = message, Margin = new Avalonia.Thickness(20,20,20,10), Foreground = Avalonia.Media.Brushes.Red },
-                    new Button { Content = "确定", Width = 100, Margin = new Avalonia.Thickness(0,10,0,0), HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center }
+                    new TextBlock { Text = message, Margin = new Avalonia.Thickness(0,0,0,15), Foreground = Avalonia.Media.Brushes.Red, FontSize = 14, TextWrapping = Avalonia.Media.TextWrapping.Wrap },
+                    new Button { Content = "确定", Width = 100, Height = 36, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#4CAF50")), Foreground = Avalonia.Media.Brushes.White }
                 }
             }
         };
@@ -91,15 +96,18 @@ public partial class StoryEditorWindow : Window
         {
             Title = "新建章节",
             Width = 400,
-            Height = 150,
+            Height = 170,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            CanResize = false
+            CanResize = false,
+            Background = Avalonia.Media.Brushes.White
         };
 
         var textBox = new TextBox
         {
             Watermark = "请输入章节标题...",
-            Margin = new Avalonia.Thickness(20, 20, 20, 10)
+            Margin = new Avalonia.Thickness(20, 20, 20, 10),
+            Background = Avalonia.Media.Brushes.White,
+            Foreground = Avalonia.Media.Brushes.Black
         };
 
         var buttonPanel = new StackPanel

@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MyBook.Views"
+    xmlns:conv="using:MyBook.Converters"
     mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
     x:Class="MyBook.Views.StoryEditorWindow"
     x:DataType="vm:StoryEditorViewModel"
@@ -13,9 +14,8 @@
 
     <Window.Resources>
         <views:FileNameFromPathConverter x:Key="FileNameFromPathConverter" />
+        <conv:StringNullOrEmptyToVisibility x:Key="StringNullOrEmptyToVisibility" />
     </Window.Resources>
-    <!-- 重复的属性声明已移除，保留唯一Window标签 -->
-
     <Design.DataContext>
         <vm:StoryEditorViewModel/>
     </Design.DataContext>
@@ -88,7 +88,6 @@
         <Style Selector="Button.editor-neutral:disabled">
             <Setter Property="Opacity" Value="0.5"/>
         </Style>
-        <!-- ToggleButton styles to match Button editor styles (确保一次性选择可见) -->
         <Style Selector="ToggleButton.editor-primary">
             <Setter Property="Background" Value="#4CAF50"/>
             <Setter Property="Foreground" Value="White"/>
@@ -155,6 +154,23 @@
         </Style>
         <Style Selector="ToggleButton.editor-neutral:disabled">
             <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <!-- ComboBox button-like styles to match project buttons -->
+        <Style Selector="ComboBox.editor-primary">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style Selector="ComboBox.editor-neutral">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="8,6"/>
         </Style>
         
         <!-- TextBox样式 -->
@@ -363,21 +379,22 @@
                         </StackPanel>
                         <!-- 说话者 -->
                         <StackPanel Spacing="6">
-                            <TextBlock Text="说话者 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBlock Text="说话者" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
                             <TextBox Text="{Binding SelectedNode.Speaker}" Watermark="角色名称..."/>
                         </StackPanel>
                         <!-- 图片设置 -->
                         <StackPanel Spacing="6" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="节点图片 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBlock Text="节点图片 " FontWeight="Medium" FontSize="13" Foreground="#424242"/>
                             <Button Classes="editor-primary" Content="选择图片" Command="{Binding SelectImageCommand}" Padding="8,4" Width="120" HorizontalAlignment="Left" Margin="0,4,0,0"/>
                             <TextBlock Text="{Binding SelectedNode.Visuals.BackgroundImage, Converter={StaticResource FileNameFromPathConverter}}" Margin="12,4,0,0" FontSize="13" Foreground="#2E7D32" VerticalAlignment="Center"/>
                         </StackPanel>
                         <!-- 背景音乐设置 -->
                         <StackPanel Spacing="6" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="背景音乐 (可选)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBlock Text="背景音乐 " FontWeight="Medium" FontSize="13" Foreground="#424242"/>
                             <Button Classes="editor-primary" Content="选择音乐" Command="{Binding SelectAudioCommand}" Padding="8,4" Width="120" HorizontalAlignment="Left" Margin="0,4,0,0"/>
                             <TextBlock Text="{Binding SelectedNode.Audio.BgmFile, Converter={StaticResource FileNameFromPathConverter}}" Margin="12,4,0,0" FontSize="13" Foreground="#2E7D32" VerticalAlignment="Center"/>
                         </StackPanel>
+
                         <!-- 文本内容 -->
                         <StackPanel Spacing="6">
                             <TextBlock Text="文本内容" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
@@ -390,7 +407,7 @@
                         </StackPanel>
                         <!-- 选项编辑 -->
                         <StackPanel Spacing="8">
-                            <TextBlock Text="选项 (Choices)" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
+                            <TextBlock Text="选项" FontWeight="Medium" FontSize="13" Foreground="#424242"/>
                             <ListBox ItemsSource="{Binding SelectedNode.Choices}" Background="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="models:StoryChoice">
