@@ -12,6 +12,12 @@ on:
         default: 'v1.0.0'
 
 jobs:
+  # Ensure the GITHUB_TOKEN has write permission for creating releases/artifacts
+  permissions:
+    contents: write
+    packages: write
+    actions: read
+
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -98,28 +104,27 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ steps.version.outputs.VERSION }}
           name: MyBook ${{ steps.version.outputs.VERSION }}
           body: |
             ## MyBook 视觉小说引擎 ${{ steps.version.outputs.VERSION }}
-            
+
             ### 功能特点
             - 🎮 视觉小说游戏引擎
             - ✏️ 内置故事编辑器
             - 💾 存档/读档系统
             - 🎵 背景音乐和打字音效
             - 📦 一键发布独立程序
-            
+
             ### 下载说明
             - **Windows**: 下载 `MyBook-win-x64.zip`
             - **Linux**: 下载 `MyBook-linux-x64.zip`
             - **macOS Intel**: 下载 `MyBook-osx-x64.zip`
             - **macOS Apple Silicon**: 下载 `MyBook-osx-arm64.zip`
-            
+
             解压后直接运行 `MyBook` (Windows 为 `MyBook.exe`) 即可开始使用。
           files: |
             artifacts/**/*.zip
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
